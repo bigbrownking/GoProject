@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright, Microsoft Corporation, All rights reserved.-->
+<Rule Name="BuildProperties" PageTemplate="generic" DisplayName="Créer" Description="Options de build" xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <Rule.DataSource>
+        <DataSource Persistence="ProjectFile" HasConfigurationCondition="False"/>
+    </Rule.DataSource>
+
+    <StringProperty Name="BuildCommand" DisplayName="Commande de build" Description="Commande à exécuter lors de la génération du projet"/>
+
+    <StringProperty Name="ProductionBuildCommand" DisplayName="Commande de build de production" Description="Lorsqu’elle est intégrée à une API web ASP.NET Core, cette commande s’exécute lors de la publication du projet .NET, ce qui crée les fichiers prêts pour la production à expédier avec la mise en production du projet .NET."/>
+
+    <StringProperty Name="BuildOutputFolder" DisplayName="Dossier de sortie de build" Description="Dossier dans lequel les objets de build de production seront placés"/>
+
+    <StringProperty Name="CleanCommand" DisplayName="Commande de nettoyage" Description="Commande à exécuter lors du nettoyage du projet"/>
+
+    <StringProperty Name="BuildCommandWorkingDirectory" DisplayName="Répertoire de travail" Description="Répertoire de travail de la commande de build. Par défaut, racine du projet." Default="$(MSBuildProjectDirectory)" Subtype="folder"/>
+
+</Rule>

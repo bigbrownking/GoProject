@@ -1,0 +1,263 @@
+00:00:00.006869 main     VirtualBox COM Server 7.0.10 r158379 win.amd64 (Jul 12 2023 18:34:34) release log
+00:00:00.006873 main     Log opened 2023-10-12T18:10:28.603641400Z
+00:00:00.006874 main     Build Type: release
+00:00:00.006894 main     OS Product: Windows 10
+00:00:00.006896 main     OS Release: 10.0.19045
+00:00:00.006897 main     OS Service Pack: 
+00:00:00.038182 main     DMI Product Name: Nitro AN515-57
+00:00:00.062063 main     DMI Product Version: V1.18
+00:00:00.062083 main     Firmware type: UEFI
+00:00:00.062718 main     Secure Boot: VERR_PRIVILEGE_NOT_HELD
+00:00:00.062849 main     Host RAM: 16163MB (15.7GB) total, 7493MB (7.3GB) available
+00:00:00.062868 main     Executable: D:\VirtualBox\VBoxSVC.exe
+00:00:00.062869 main     Process ID: 20468
+00:00:00.062870 main     Package type: WINDOWS_64BITS_GENERIC
+00:00:00.338428          VirtualBox: object creation starts
+00:00:00.339577          Home directory: 'C:\Users\Esimgali\.VirtualBox'
+00:00:00.340121          Installed Drivers:
+00:00:00.344805            C:\WINDOWS\system32\DRIVERS\VBoxNetLwf.sys (Version: 7.0.10.8379)
+00:00:00.346238            C:\WINDOWS\system32\DRIVERS\VBoxUSBMon.sys (Version: 7.0.10.8379)
+00:00:00.347407            C:\WINDOWS\system32\DRIVERS\VBoxSup.sys (Version: 7.0.10.8379)
+00:00:00.348718            C:\WINDOWS\system32\DRIVERS\VBoxNetAdp6.sys (Version: 7.0.10.8379)
+00:00:00.376437          Loading settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml" with version "1.12-windows"
+00:00:00.391291          usbLibGetDevices: Starting USB device enumeration
+00:00:00.421645          Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+00:00:00.421797          Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+00:00:00.425088          usbLibGetDevices: Found 3 USB devices, 0 captured
+00:00:00.426344          USB: Unknown USB device detected (idVendor: 0x04f2, idProduct: 0xb64f)
+00:00:00.427066          USB: Unknown USB device detected (idVendor: 0x0d22, idProduct: 0x0d40)
+00:00:00.427686          USB: Unknown USB device detected (idVendor: 0x8087, idProduct: 0x0026)
+00:00:00.579170          HostDnsMonitor: initializing
+00:00:00.591253          HostDnsMonitor: updating information
+00:00:00.591902          HostDnsMonitor: old information
+00:00:00.591904            no server entries
+00:00:00.591906            no domain set
+00:00:00.591906            no search string entries
+00:00:00.591907          HostDnsMonitor: new information
+00:00:00.591908            server 1: 192.168.100.1
+00:00:00.591909            no domain set
+00:00:00.591909            no search string entries
+00:00:00.706543          VD: VDInit finished with VINF_SUCCESS
+00:00:00.717087          Loading settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox" with version "1.19-windows"
+00:00:00.730476          VirtualBox: object created
+00:00:00.842537          Saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml" with version "1.12-windows"
+00:00:00.845424          Finished saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml"
+00:00:00.845644          Saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml" with version "1.12-windows"
+00:00:00.847812          Finished saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml"
+00:00:00.847985          Saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml" with version "1.12-windows"
+00:00:00.849927          Finished saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml"
+00:00:02.694966          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is PoweredOff)}, preserve=false aResultDetail=0
+00:00:04.468771          Launched VM: 1134104384 pid: 8236 (0x202c) frontend: GUI/Qt name: Ubuntu
+00:00:04.498253          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is PoweredOff)}, preserve=false aResultDetail=0
+00:00:19.023482          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is PoweredOff)}, preserve=false aResultDetail=0
+00:00:20.634807          ERROR [COM]: aRC=VBOX_E_OBJECT_NOT_FOUND (0x80bb0001) aIID={70401eef-c8e9-466b-9660-45cb3e9979e4} aComponent={ExtPackManagerWrap} aText={No extension pack by the name 'Oracle VM VirtualBox Extension Pack' was found}, preserve=false aResultDetail=0
+00:00:28.624206          ERROR [COM]: aRC=VBOX_E_IPRT_ERROR (0x80bb0005) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={SessionMachine} aText={Saved screenshot data is not available (VERR_NOT_SUPPORTED)}, preserve=false aResultDetail=-37
+00:00:29.304966          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={SessionMachine} aText={The machine is not mutable or saved (state is Starting)}, preserve=false aResultDetail=0
+00:00:29.308417          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Starting)}, preserve=false aResultDetail=0
+00:00:31.096461          ERROR [COM]: aRC=VBOX_E_OBJECT_NOT_FOUND (0x80bb0001) aIID={ad47ad09-787b-44ab-b343-a082a3f2dfb1} aComponent={MediumWrap} aText={Property 'CRYPT/KeyId' does not exist}, preserve=false aResultDetail=0
+00:00:31.097006          ERROR [COM]: aRC=VBOX_E_OBJECT_NOT_FOUND (0x80bb0001) aIID={ad47ad09-787b-44ab-b343-a082a3f2dfb1} aComponent={MediumWrap} aText={Property 'CRYPT/KeyId' does not exist}, preserve=false aResultDetail=0
+00:00:31.148485          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Running)}, preserve=false aResultDetail=0
+00:12:28.894884          Saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox" with version "1.19-windows"
+00:12:28.900797          Finished saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox"
+00:12:28.949998          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Running)}, preserve=false aResultDetail=0
+00:16:19.156991          Saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox" with version "1.19-windows"
+00:16:19.163957          Finished saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox"
+00:16:19.191077          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Running)}, preserve=false aResultDetail=0
+01:23:15.280919 USBPROXY usbLibGetDevices: Starting USB device enumeration
+01:23:15.390194 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+01:23:15.399726 USBPROXY usbLibGetDevices: Found 3 USB devices, 0 captured
+01:23:16.898681 USBPROXY usbLibGetDevices: Starting USB device enumeration
+01:23:16.916831 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+01:23:16.917772 USBPROXY usbLibGetDevices: Found 3 USB devices, 0 captured
+01:24:40.014405 USBPROXY usbLibGetDevices: Starting USB device enumeration
+01:24:40.340827 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+01:24:40.341025 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+01:24:40.341280 USBPROXY usbLibGetDevices: Found 3 USB devices, 0 captured
+01:25:04.834577 USBPROXY usbLibGetDevices: Starting USB device enumeration
+01:25:04.855913 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+01:25:04.856654 USBPROXY usbLibGetDevices: Found 3 USB devices, 0 captured
+01:31:39.641861 USBPROXY usbLibGetDevices: Starting USB device enumeration
+01:31:39.660194 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+01:31:39.660452 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+01:31:39.660822 USBPROXY usbLibGetDevices: Found 3 USB devices, 0 captured
+01:33:57.311921 USBPROXY usbLibGetDevices: Starting USB device enumeration
+01:33:57.330905 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+01:33:57.331092 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+01:33:57.331498 USBPROXY usbLibGetDevices: Found 3 USB devices, 0 captured
+02:48:16.731952 MainPower Host suspending: Paused 1 VMs
+02:48:16.804812          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Paused)}, preserve=false aResultDetail=0
+02:51:35.204415 dns-monitor HostDnsMonitor: updating information
+02:51:35.204485 dns-monitor HostDnsMonitor: unchanged
+05:51:41.187304 dns-monitor HostDnsMonitor: updating information
+05:51:41.187326 dns-monitor HostDnsMonitor: unchanged
+11:51:41.947480 MainPower Host resumed: Resumed 1 VMs
+11:51:42.941196          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Running)}, preserve=false aResultDetail=0
+11:51:43.280344 USBPROXY usbLibGetDevices: Starting USB device enumeration
+11:51:43.386441 dns-monitor HostDnsMonitor: updating information
+11:51:43.386468 dns-monitor HostDnsMonitor: unchanged
+11:51:43.913143 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+11:51:43.913335 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+11:51:43.913766 USBPROXY usbLibGetDevices: Found 2 USB devices, 0 captured
+11:51:45.115119 USBPROXY usbLibGetDevices: Starting USB device enumeration
+11:51:45.213904 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+11:51:45.214048 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+11:51:45.214324 USBPROXY usbLibGetDevices: Found 2 USB devices, 0 captured
+11:57:24.252214 MainPower Host suspending: Paused 1 VMs
+11:57:24.291820          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Paused)}, preserve=false aResultDetail=0
+12:02:19.434088 MainPower Host resumed: Resumed 1 VMs
+12:02:19.727502          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Running)}, preserve=false aResultDetail=0
+12:02:21.400099 dns-monitor HostDnsMonitor: updating information
+12:02:21.400134 dns-monitor HostDnsMonitor: unchanged
+12:36:26.594156          Saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml" with version "1.12-windows"
+12:36:26.599365          Finished saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml"
+12:36:26.599786          Saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml" with version "1.12-windows"
+12:36:26.604783          Finished saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml"
+12:36:26.605287          Saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml" with version "1.12-windows"
+12:36:26.610688          Finished saving settings file "C:\Users\Esimgali\.VirtualBox\VirtualBox.xml"
+12:36:28.084816          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Running)}, preserve=false aResultDetail=0
+13:35:16.007582          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Paused)}, preserve=false aResultDetail=0
+13:35:19.871567          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Stopping)}, preserve=false aResultDetail=0
+13:35:19.897612          Saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox" with version "1.19-windows"
+13:35:19.900569          Finished saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox"
+13:35:19.913523          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is PoweredOff)}, preserve=false aResultDetail=0
+13:35:20.944009          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is PoweredOff)}, preserve=false aResultDetail=0
+13:54:00.670499 MainPower Host suspending: Paused 0 VMs
+13:55:49.382395 MainPower Host resumed: Resumed 0 VMs
+13:55:51.141396 dns-monitor HostDnsMonitor: updating information
+13:55:51.141430 dns-monitor HostDnsMonitor: unchanged
+14:00:10.211811 USBPROXY usbLibGetDevices: Starting USB device enumeration
+14:00:10.592717 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+14:00:10.592831 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+14:00:10.593038 USBPROXY usbLibGetDevices: Found 2 USB devices, 0 captured
+14:00:11.320203 USBPROXY usbLibGetDevices: Starting USB device enumeration
+14:00:11.378565 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+14:00:11.378719 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+14:00:11.379028 USBPROXY usbLibGetDevices: Found 2 USB devices, 0 captured
+14:01:19.078443 USBPROXY usbLibGetDevices: Starting USB device enumeration
+14:01:19.125717 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+14:01:19.125828 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+14:01:19.126037 USBPROXY usbLibGetDevices: Found 2 USB devices, 0 captured
+14:27:35.931718 MainPower Host suspending: Paused 0 VMs
+14:49:57.415554 MainPower Host resumed: Resumed 0 VMs
+14:49:59.169225 dns-monitor HostDnsMonitor: updating information
+14:49:59.169297 dns-monitor HostDnsMonitor: old information
+14:49:59.169301 dns-monitor   server 1: 192.168.100.1
+14:49:59.169306 dns-monitor   no domain set
+14:49:59.169309 dns-monitor   no search string entries
+14:49:59.169313 dns-monitor HostDnsMonitor: new information
+14:49:59.169316 dns-monitor   no server entries
+14:49:59.169319 dns-monitor   no domain set
+14:49:59.169322 dns-monitor   no search string entries
+14:50:02.384471 dns-monitor HostDnsMonitor: updating information
+14:50:02.384513 dns-monitor HostDnsMonitor: unchanged
+14:50:07.745786 dns-monitor HostDnsMonitor: updating information
+14:50:07.745820 dns-monitor HostDnsMonitor: old information
+14:50:07.745827 dns-monitor   no server entries
+14:50:07.745834 dns-monitor   no domain set
+14:50:07.745840 dns-monitor   no search string entries
+14:50:07.745847 dns-monitor HostDnsMonitor: new information
+14:50:07.745853 dns-monitor   server 1: 10.1.11.20
+14:50:07.745860 dns-monitor   server 2: 195.189.68.1
+14:50:07.745865 dns-monitor   no domain set
+14:50:07.745870 dns-monitor   no search string entries
+14:50:19.360385 dns-monitor HostDnsMonitor: updating information
+14:50:19.360421 dns-monitor HostDnsMonitor: unchanged
+14:50:21.236800          Launched VM: 1140522896 pid: 16160 (0x3f20) frontend: GUI/Qt name: Ubuntu
+14:50:21.272227          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is PoweredOff)}, preserve=false aResultDetail=0
+14:50:27.749074          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is PoweredOff)}, preserve=false aResultDetail=0
+14:50:28.359551          ERROR [COM]: aRC=VBOX_E_OBJECT_NOT_FOUND (0x80bb0001) aIID={70401eef-c8e9-466b-9660-45cb3e9979e4} aComponent={ExtPackManagerWrap} aText={No extension pack by the name 'Oracle VM VirtualBox Extension Pack' was found}, preserve=false aResultDetail=0
+14:50:31.592860          ERROR [COM]: aRC=VBOX_E_IPRT_ERROR (0x80bb0005) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={SessionMachine} aText={Saved screenshot data is not available (VERR_NOT_SUPPORTED)}, preserve=false aResultDetail=-37
+14:50:32.072348          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={SessionMachine} aText={The machine is not mutable or saved (state is Starting)}, preserve=false aResultDetail=0
+14:50:32.076576          Saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox" with version "1.19-windows"
+14:50:32.080280          Finished saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox"
+14:50:32.082064          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Starting)}, preserve=false aResultDetail=0
+14:50:32.099000          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Starting)}, preserve=false aResultDetail=0
+14:50:33.860698          ERROR [COM]: aRC=VBOX_E_OBJECT_NOT_FOUND (0x80bb0001) aIID={ad47ad09-787b-44ab-b343-a082a3f2dfb1} aComponent={MediumWrap} aText={Property 'CRYPT/KeyId' does not exist}, preserve=false aResultDetail=0
+14:50:33.862043          ERROR [COM]: aRC=VBOX_E_OBJECT_NOT_FOUND (0x80bb0001) aIID={ad47ad09-787b-44ab-b343-a082a3f2dfb1} aComponent={MediumWrap} aText={Property 'CRYPT/KeyId' does not exist}, preserve=false aResultDetail=0
+14:50:33.913867          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Running)}, preserve=false aResultDetail=0
+14:50:36.763459          Saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox" with version "1.19-windows"
+14:50:36.766955          Finished saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox"
+14:50:36.777164          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Running)}, preserve=false aResultDetail=0
+14:50:54.110405          Saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox" with version "1.19-windows"
+14:50:54.160034          Finished saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox"
+14:50:54.171206          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Running)}, preserve=false aResultDetail=0
+14:51:12.263946          Saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox" with version "1.19-windows"
+14:51:12.266911          Finished saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox"
+14:51:12.275759          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Running)}, preserve=false aResultDetail=0
+14:55:01.402502 dns-monitor HostDnsMonitor: updating information
+14:55:01.402586 dns-monitor HostDnsMonitor: old information
+14:55:01.402594 dns-monitor   server 1: 10.1.11.20
+14:55:01.402602 dns-monitor   server 2: 195.189.68.1
+14:55:01.402609 dns-monitor   no domain set
+14:55:01.402615 dns-monitor   no search string entries
+14:55:01.402622 dns-monitor HostDnsMonitor: new information
+14:55:01.402628 dns-monitor   no server entries
+14:55:01.402635 dns-monitor   no domain set
+14:55:01.402641 dns-monitor   no search string entries
+14:55:06.205746 dns-monitor HostDnsMonitor: updating information
+14:55:06.205811 dns-monitor HostDnsMonitor: old information
+14:55:06.205818 dns-monitor   no server entries
+14:55:06.205825 dns-monitor   no domain set
+14:55:06.205833 dns-monitor   no search string entries
+14:55:06.205842 dns-monitor HostDnsMonitor: new information
+14:55:06.205850 dns-monitor   server 1: 10.1.11.20
+14:55:06.205860 dns-monitor   server 2: 195.189.68.1
+14:55:06.205869 dns-monitor   no domain set
+14:55:06.205879 dns-monitor   no search string entries
+14:55:13.668939 dns-monitor HostDnsMonitor: updating information
+14:55:13.668962 dns-monitor HostDnsMonitor: unchanged
+14:55:19.665637 dns-monitor HostDnsMonitor: updating information
+14:55:19.665674 dns-monitor HostDnsMonitor: unchanged
+15:07:29.034832 USBPROXY usbLibGetDevices: Starting USB device enumeration
+15:07:29.405737 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+15:07:29.405941 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+15:07:29.406316 USBPROXY usbLibGetDevices: Found 2 USB devices, 0 captured
+15:07:30.177105 USBPROXY usbLibGetDevices: Starting USB device enumeration
+15:07:30.210711 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+15:07:30.210892 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+15:07:30.211235 USBPROXY usbLibGetDevices: Found 2 USB devices, 0 captured
+15:08:03.465175 USBPROXY usbLibGetDevices: Starting USB device enumeration
+15:08:03.504344 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+15:08:03.504542 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+15:08:03.504879 USBPROXY usbLibGetDevices: Found 2 USB devices, 0 captured
+15:11:52.930712          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Paused)}, preserve=false aResultDetail=0
+15:11:55.293046          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is Stopping)}, preserve=false aResultDetail=0
+15:11:55.302420          Saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox" with version "1.19-windows"
+15:11:55.305567          Finished saving settings file "C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vbox"
+15:11:55.334201          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is PoweredOff)}, preserve=false aResultDetail=0
+15:11:56.358920          ERROR [COM]: aRC=VBOX_E_INVALID_VM_STATE (0x80bb0002) aIID={300763af-5d6b-46e6-aa96-273eac15538a} aComponent={MachineWrap} aText={The machine is not mutable (state is PoweredOff)}, preserve=false aResultDetail=0
+15:12:02.437433 MainPower Host suspending: Paused 0 VMs
+16:11:38.194904 dns-monitor HostDnsMonitor: updating information
+16:11:38.194983 dns-monitor HostDnsMonitor: old information
+16:11:38.194987 dns-monitor   server 1: 10.1.11.20
+16:11:38.194992 dns-monitor   server 2: 195.189.68.1
+16:11:38.194995 dns-monitor   no domain set
+16:11:38.194998 dns-monitor   no search string entries
+16:11:38.195001 dns-monitor HostDnsMonitor: new information
+16:11:38.195005 dns-monitor   no server entries
+16:11:38.195008 dns-monitor   no domain set
+16:11:38.195011 dns-monitor   no search string entries
+20:55:14.937023 MainPower Host resumed: Resumed 0 VMs
+20:59:14.262245 dns-monitor HostDnsMonitor: updating information
+20:59:14.262332 dns-monitor HostDnsMonitor: old information
+20:59:14.262342 dns-monitor   no server entries
+20:59:14.262350 dns-monitor   no domain set
+20:59:14.262355 dns-monitor   no search string entries
+20:59:14.262361 dns-monitor HostDnsMonitor: new information
+20:59:14.262367 dns-monitor   server 1: 192.168.100.1
+20:59:14.262373 dns-monitor   no domain set
+20:59:14.262378 dns-monitor   no search string entries
+21:20:22.993872 MainPower Host suspending: Paused 0 VMs
+22:00:41.275633 MainPower Host resumed: Resumed 0 VMs
+22:00:43.028470 dns-monitor HostDnsMonitor: updating information
+22:00:43.028497 dns-monitor HostDnsMonitor: unchanged
+22:19:13.988351 USBPROXY usbLibGetDevices: Starting USB device enumeration
+22:19:14.042879 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 9
+22:19:14.043746 USBPROXY Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&fb42c6b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 14
+22:19:14.044101 USBPROXY usbLibGetDevices: Found 2 USB devices, 0 captured
+22:28:03.171375 main     VirtualBox: object deletion starts
+22:28:03.171837 main     ERROR [COM]: aRC=VBOX_E_OBJECT_IN_USE (0x80bb000c) aIID={ad47ad09-787b-44ab-b343-a082a3f2dfb1} aComponent={MediumWrap} aText={Medium 'C:\Users\Esimgali\VirtualBox VMs\Ubuntu\Ubuntu.vdi' cannot be closed because it is still attached to 1 virtual machines}, preserve=false aResultDetail=0
+22:28:03.174294 main     HostDnsMonitor: shutting down ...
+22:28:03.174401 main     HostDnsMonitor: shut down
+22:28:03.176950 Watcher  ERROR [COM]: aRC=E_ACCESSDENIED (0x80070005) aIID={7682d5eb-f00e-44f1-8ca2-99d08b1cd607} aComponent={VirtualBoxWrap} aText={The object is not ready}, preserve=false aResultDetail=0
+22:28:03.180820 main     VirtualBox: object deleted

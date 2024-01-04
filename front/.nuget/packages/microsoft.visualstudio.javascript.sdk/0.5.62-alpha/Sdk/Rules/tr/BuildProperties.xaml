@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright, Microsoft Corporation, All rights reserved.-->
+<Rule Name="BuildProperties" PageTemplate="generic" DisplayName="Derleme" Description="Derleme seçenekleri" xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <Rule.DataSource>
+        <DataSource Persistence="ProjectFile" HasConfigurationCondition="False"/>
+    </Rule.DataSource>
+
+    <StringProperty Name="BuildCommand" DisplayName="Derleme Komutu" Description="Proje derlemesi üzerinde çalıştırılacak komut"/>
+
+    <StringProperty Name="ProductionBuildCommand" DisplayName="Üretim Derleme Komutu" Description="Bu komut, ASP.NET Core Web API'si ile tümleştirildiğinde, .NET projesi yayımlandığında çalıştırılarak .NET proje sürümüyle birlikte gönderilecek üretime hazır dosyaları oluşturur"/>
+
+    <StringProperty Name="BuildOutputFolder" DisplayName="Derleme Çıkış Klasörü" Description="Üretim derleme nesnelerinin yerleştirileceği klasör"/>
+
+    <StringProperty Name="CleanCommand" DisplayName="Temizle Komutu" Description="Proje temizlemesi üzerinde çalıştırılacak komut"/>
+
+    <StringProperty Name="BuildCommandWorkingDirectory" DisplayName="Çalışma Dizini" Description="Derleme komutu için çalışma dizini. Varsayılan olarak, proje kökü." Default="$(MSBuildProjectDirectory)" Subtype="folder"/>
+
+</Rule>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright, Microsoft Corporation, All rights reserved.-->
+<Rule Name="BuildProperties" PageTemplate="generic" DisplayName="Сборка" Description="Параметры сборки" xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <Rule.DataSource>
+        <DataSource Persistence="ProjectFile" HasConfigurationCondition="False"/>
+    </Rule.DataSource>
+
+    <StringProperty Name="BuildCommand" DisplayName="Команда сборки" Description="Команда для запуска при сборке проекта"/>
+
+    <StringProperty Name="ProductionBuildCommand" DisplayName="Команда производственной сборки" Description="При интеграции с веб-API ASP.NET Core эта команда будет выполняться при публикации проекта .NET, создавая готовые к производственной среде файлы для отправки с выпуском проекта .NET"/>
+
+    <StringProperty Name="BuildOutputFolder" DisplayName="Папка выходных данных сборки" Description="Папка, в которой будут размещены объекты производственной сборки"/>
+
+    <StringProperty Name="CleanCommand" DisplayName="Команда очистки" Description="Команда для запуска при очистке проекта"/>
+
+    <StringProperty Name="BuildCommandWorkingDirectory" DisplayName="Рабочая папка" Description="Рабочая папка для команды сборки. По умолчанию корень проекта." Default="$(MSBuildProjectDirectory)" Subtype="folder"/>
+
+</Rule>

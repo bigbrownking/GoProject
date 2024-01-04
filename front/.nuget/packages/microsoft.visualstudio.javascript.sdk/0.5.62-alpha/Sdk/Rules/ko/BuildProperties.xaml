@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright, Microsoft Corporation, All rights reserved.-->
+<Rule Name="BuildProperties" PageTemplate="generic" DisplayName="빌드" Description="빌드 옵션" xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <Rule.DataSource>
+        <DataSource Persistence="ProjectFile" HasConfigurationCondition="False"/>
+    </Rule.DataSource>
+
+    <StringProperty Name="BuildCommand" DisplayName="빌드 명령" Description="프로젝트 빌드에서 실행할 명령"/>
+
+    <StringProperty Name="ProductionBuildCommand" DisplayName="프로덕션 빌드 명령" Description="ASP.NET Core Web API와 통합된 경우 .NET 프로젝트가 게시될 때 이 명령이 실행되고, .NET 프로젝트 릴리스와 함께 제공될 프로덕션 준비 파일을 만듭니다."/>
+
+    <StringProperty Name="BuildOutputFolder" DisplayName="빌드 출력 폴더" Description="프로덕션 빌드 개체가 배치될 폴더"/>
+
+    <StringProperty Name="CleanCommand" DisplayName="정리 명령" Description="프로젝트 정리에서 실행할 명령"/>
+
+    <StringProperty Name="BuildCommandWorkingDirectory" DisplayName="작업 디렉터리" Description="빌드 명령의 작업 디렉터리입니다. 기본적으로 프로젝트 루트입니다." Default="$(MSBuildProjectDirectory)" Subtype="folder"/>
+
+</Rule>

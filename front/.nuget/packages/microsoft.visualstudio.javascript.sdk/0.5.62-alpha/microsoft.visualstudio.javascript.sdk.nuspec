@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.VisualStudio.JavaScript.SDK</id>
+    <version>0.5.62-alpha</version>
+    <authors>Microsoft</authors>
+    <license type="file">LICENSE.txt</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <projectUrl>https://aka.ms/jsps</projectUrl>
+    <description>MSBuild project SDK providing support for JavaScript and TypeScript projects</description>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>MSBuildSdk JavaScript TypeScript</tags>
+    <packageTypes>
+      <packageType name="MSBuildSdk" />
+    </packageTypes>
+  </metadata>
+</package>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectSystemBase>$(MSBuildThisFileDirectory)</ProjectSystemBase>
+
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+
+    <DebuggerFlavor>ScriptDebugger</DebuggerFlavor>
+  </PropertyGroup>
+
+  <!-- Allow disabling of automatic default item globbing. -->
+  <PropertyGroup>
+    <EnableDefaultItems Condition=" '$(EnableDefaultItems)' == '' ">true</EnableDefaultItems>
+    <EnableDefaultTypeScriptConfigurationItems Condition=" '$(EnableDefaultTypeScriptConfigurationItems)' == '' ">true</EnableDefaultTypeScriptConfigurationItems>
+    <EnableDefaultNoneItems Condition=" '$(EnableDefaultNoneItems)' == '' ">true</EnableDefaultNoneItems>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Hiding obj folder -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);obj/**</DefaultItemExcludes>
+
+    <!-- Various files that should generally always be ignored -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);**/*.user</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**/*.*proj</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**/*.sln</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**/*.vssscc</DefaultItemExcludes>
+
+    <!-- WARNING: This pattern is there to ignore folders such as .git and .vs, but it will also match items included with a
+         relative path outside the project folder (for example "..\Shared\Shared.cs").  So be sure only to apply it to items
+         that are in the project folder. -->
+    <DefaultExcludesInProjectFolder>$(DefaultExcludesInProjectFolder);**/.*/**</DefaultExcludesInProjectFolder>
+
+    <!-- Ignore node_modules -->
+    <DefaultExcludesInProjectFolder>$(DefaultExcludesInProjectFolder);**/node_modules/**</DefaultExcludesInProjectFolder>
+
+    <!-- Items to assign to TypeScriptConfiguration. -->
+    <DefaultTypeScriptConfigurationItemIncludes>$(DefaultTypeScriptConfigurationItemIncludes);**/jsconfig.json;**/tsconfig.json</DefaultTypeScriptConfigurationItemIncludes>
+  </PropertyGroup>
+</Project>

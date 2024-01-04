@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright, Microsoft Corporation, All rights reserved.-->
+<Rule Name="BuildProperties"
+      PageTemplate="generic"
+      DisplayName="Build"
+      Description="Build options"
+      xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <Rule.DataSource>
+        <DataSource Persistence="ProjectFile" HasConfigurationCondition="False" />
+    </Rule.DataSource>
+
+    <StringProperty Name="BuildCommand"
+                    DisplayName="Build Command"
+                    Description="Command to run on project build" />
+
+    <StringProperty Name="ProductionBuildCommand"
+                    DisplayName="Production Build Command"
+                    Description="When integrated with an ASP.NET Core Web API this command will run when the .NET project is published, creating the production-ready files to ship with the .NET project release" />
+
+    <StringProperty Name="BuildOutputFolder"
+                    DisplayName="Build Output Folder"
+                    Description="Folder where production build objects will be placed" />
+
+    <StringProperty Name="CleanCommand"
+                    DisplayName="Clean Command"
+                    Description="Command to run on project clean" />
+
+    <StringProperty Name="BuildCommandWorkingDirectory"
+                    DisplayName="Working Directory"
+                    Description="The working directory for the build command. By default, the project root."
+                    Default="$(MSBuildProjectDirectory)"
+                    Subtype="folder" />
+
+</Rule>

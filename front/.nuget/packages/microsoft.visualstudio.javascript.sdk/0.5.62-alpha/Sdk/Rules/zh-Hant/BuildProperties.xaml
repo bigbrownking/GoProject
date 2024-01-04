@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright, Microsoft Corporation, All rights reserved.-->
+<Rule Name="BuildProperties" PageTemplate="generic" DisplayName="組建" Description="建置選項" xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <Rule.DataSource>
+        <DataSource Persistence="ProjectFile" HasConfigurationCondition="False"/>
+    </Rule.DataSource>
+
+    <StringProperty Name="BuildCommand" DisplayName="建置命令" Description="要在專案組建上執行的命令"/>
+
+    <StringProperty Name="ProductionBuildCommand" DisplayName="生產環境建置命令" Description="與 ASP.NET Core Web API 整合時，會在發佈 .NET 專案時執行此命令，建立隨附於 .NET 專案發行的生產就緒檔案"/>
+
+    <StringProperty Name="BuildOutputFolder" DisplayName="組建輸出資料夾" Description="將放置生產環境組建物件的資料夾"/>
+
+    <StringProperty Name="CleanCommand" DisplayName="清除命令" Description="要在專案清除上執行的命令"/>
+
+    <StringProperty Name="BuildCommandWorkingDirectory" DisplayName="工作目錄" Description="建置命令的工作目錄。根據預設，是專案根目錄。" Default="$(MSBuildProjectDirectory)" Subtype="folder"/>
+
+</Rule>
