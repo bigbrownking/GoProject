@@ -45,7 +45,7 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		// Подключение к MongoDB
-		clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+		clientOptions := options.Client().ApplyURI("mongodb+srv://Esimgali:<password>@cluste.vdsc74d.mongodb.net/?retryWrites=true&w=majority")
 		client, err := mongo.Connect(context.TODO(), clientOptions)
 		if err != nil {
 			log.Fatal(err)
