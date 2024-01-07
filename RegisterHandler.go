@@ -69,10 +69,10 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		//________________________Нахождение и insert_____________________________
 		var result ResponseRegister
 		err = collection.FindOne(context.TODO(), requestJSON.Login).Decode(&result)
-
+		fmt.Println(result)
 		var response ResponseRegister
-		if result.Login == "" {
-			fmt.Println("Not found Login")
+		if result.Login != "" {
+			fmt.Println("Login exist")
 			response = ResponseRegister{
 				Status: 505,
 				Login:  requestJSON.Login,
