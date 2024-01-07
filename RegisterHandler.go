@@ -51,7 +51,6 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		//_________________________connect to MongoDb_____________________________________
 		serverAPI := options.ServerAPI(options.ServerAPIVersion1)
 		opts := options.Client().ApplyURI("mongodb+srv://Esimgali:LOLRKCjhuCSfTdeY@cluste.vdsc74d.mongodb.net/?retryWrites=true&w=majority").SetServerAPIOptions(serverAPI)
-		// Create a new client and connect to the server
 		client, err := mongo.Connect(context.TODO(), opts)
 		if err != nil {
 			panic(err)
@@ -61,7 +60,6 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 				panic(err)
 			}
 		}()
-		// Send a ping to confirm a successful connection
 		if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
 			panic(err)
 		}
@@ -104,7 +102,6 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write(responseJSON)
 
 	} else {
-		// Handle other HTTP methods as needed
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 	}
 }
