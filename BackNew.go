@@ -2,10 +2,14 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
+
+	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -16,12 +20,40 @@ type PageVariables struct {
 	Title string
 }
 
+type LoginRequest struct {
+	Login    string `json:"login"`
+	Password string `json:"password"`
+}
+
+type RegisterRequest struct {
+	Message string `json:"write"`
+}
+
+type ResponseLogin struct {
+	Status int    `json:"status"`
+	Login  string `json:"login"`
+	Id     string `json:"id"`
+}
+
+type adminRequest struct {
+	Message string `json:"message"`
+}
+
+type ResponseStatus struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+}
+
 var newUserChannel = make(chan struct{}, 1)
 
 func main() {
-	http.HandleFunc("/", HomePage)
+	http.HandleFunc("/login", LoginHandler)
 	http.HandleFunc("/register", RegisterHandler)
-	http.ListenAndServe(":8080", nil)
+	fmt.Println("Server listening on :8080")
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		fmt.Println("Error starting server:", err)
+	}
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 }
 
@@ -42,10 +74,102 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func LoginHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, "Error reading request body", http.StatusInternalServerError)
+			return
+		}
+
+		var requestJSON LoginRequest
+		err = json.Unmarshal(body, &requestJSON)
+		if err != nil || requestJSON.Login == "" {
+			responseError := ResponseStatus{
+				Status:  http.StatusBadRequest,
+				Message: "Некорректное JSON-сообщение",
+			}
+			sendJSONResponse(w, responseError)
+			return
+		}
+
+		fmt.Fprintf(os.Stdout, "Received POST request with message: %s\n", requestJSON)
+
+		//_________________________connect to MongoDb_____________________________________
+		serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+		opts := options.Client().ApplyURI("mongodb+srv://Esimgali:LOLRKCjhuCSfTdeY@cluste.vdsc74d.mongodb.net/?retryWrites=true&w=majority").SetServerAPIOptions(serverAPI)
+		// Create a new client and connect to the server
+		client, err := mongo.Connect(context.TODO(), opts)
+		if err != nil {
+			panic(err)
+		}
+		defer func() {
+			if err = client.Disconnect(context.TODO()); err != nil {
+				panic(err)
+			}
+		}()
+		// Send a ping to confirm a successful connection
+		if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
+			panic(err)
+		}
+		fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+		collection := client.Database("mydb").Collection("users")
+
+		fmt.Println(requestJSON)
+		filter := bson.D{{"login", "okfnkvnfkvdn"}}
+		fmt.Println(filter)
+		var result ResponseLogin
+		err = collection.FindOne(context.TODO(), filter).Decode(&result)
+		fmt.Println()
+
+		//___________________________send success response_________________________________________
+		response := ResponseLogin{
+			Status: http.StatusOK,
+			Login:  "fjnvfjkv",
+			Id:     "150",
+		}
+		responseJSON, err := json.Marshal(response)
+		if err != nil {
+			http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(response.Status)
+		w.Write(responseJSON)
+	}
+}
+
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, "Error reading request body", http.StatusInternalServerError)
+			return
+		}
+
+		var requestJSON RegisterRequest
+		err = json.Unmarshal(body, &requestJSON)
+		if err != nil || requestJSON.Message == "" {
+			responseError := ResponseStatus{
+				Status:  http.StatusBadRequest,
+				Message: "Некорректное JSON-сообщение",
+			}
+			sendJSONResponse(w, responseError)
+			return
+		}
+
+		fmt.Printf("Received POST request with message: %s\n", requestJSON.Message)
+
+		response := ResponseStatus{
+			Status:  http.StatusOK,
+			Message: "Данные успешно приняты",
+		}
+
+		sendJSONResponse(w, response)
+
 		// Подключение к MongoDB
-		clientOptions := options.Client().ApplyURI("mongodb+srv://Esimgali:<password>@cluste.vdsc74d.mongodb.net/?retryWrites=true&w=majority")
+		clientOptions := options.Client().ApplyURI("mongodb+srv://Esimgali:LOLRKCjhuCSfTdeY@cluste.vdsc74d.mongodb.net/?retryWrites=true&w=majority")
 		client, err := mongo.Connect(context.TODO(), clientOptions)
 		if err != nil {
 			log.Fatal(err)
@@ -155,4 +279,16 @@ func getUsersFromDB() []map[string]interface{} {
 	}
 
 	return users
+}
+
+func sendJSONResponse(w http.ResponseWriter, response ResponseStatus) {
+	responseJSON, err := json.Marshal(response)
+	if err != nil {
+		http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(response.Status)
+	w.Write(responseJSON)
 }
