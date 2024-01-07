@@ -68,7 +68,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 
 		//________________________Нахождение и insert_____________________________
 		var result ResponseRegister
-		err = collection.FindOne(context.TODO(), requestJSON.Login).Decode(&result)
+		err = collection.FindOne(context.TODO(), bson.M{"login": requestJSON.Login}).Decode(&result)
 		fmt.Println(result)
 		var response ResponseRegister
 		if result.Login != "" {
