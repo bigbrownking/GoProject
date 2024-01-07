@@ -33,7 +33,7 @@ type ResponseAdmin struct {
 	Address     string             `json:"address"`
 }
 
-func AdminPage(w http.ResponseWriter, r *http.Request) {
+func AdminHandler(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		http.Error(w, "Error reading request body", http.StatusInternalServerError)
