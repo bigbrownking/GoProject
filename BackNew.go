@@ -22,10 +22,10 @@ func main() {
 	http.HandleFunc("/", HomePage)
 	http.HandleFunc("/loginPage", LoginPage)
 	http.HandleFunc("/AdminPage", AdminPage)
-	http.HandleFunc("/login", LoginHandler)
-	http.HandleFunc("/register", RegisterHandler)
-	http.HandleFunc("/admin", AdminHandler)
-	http.HandleFunc("/admin/all", AdminAll)
+	http.HandleFunc("/login", LoginHandler)       //post
+	http.HandleFunc("/register", RegisterHandler) //post
+	http.HandleFunc("/admin", AdminHandler)       //post
+	http.HandleFunc("/admin/all", AdminAll)       //get
 	fmt.Println("Server listening on :8080")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {

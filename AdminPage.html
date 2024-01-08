@@ -9,6 +9,7 @@
 <body>
     <h2 class="text-center mb-4">Административная страница</h2>
     <button class="table" onclick="send()">Send</button>
+    <button onclick="leaveToBack()">Leave</button>
 </body>
 <style>
     body {
@@ -17,16 +18,6 @@
         margin: auto;
     }   
 </style>
-<script>
-    function send(){
-    setTimeout(async()=>{
-    await axios.post("http://localhost:8080/register", {
-	"login": "EsimgaliKh",
-    "password":"fkmvflkvm",
-    "email": "fkvmldfkmv",
-    "number":"ldmokfsdmvk"
-})
-})
-}
-</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./Script.js"></script>
 </html>
