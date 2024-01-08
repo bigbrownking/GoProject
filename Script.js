@@ -155,7 +155,7 @@ async function deleteUser(id) {
 async function updateUser(id) {
     let data;
     try {
-        await axios.post("http://localhost:8080/admin", {"action": "filter", "id": id.value}).then(response => {
+        await axios.post("http://localhost:8080/admin", {"action": "filter", "id": id}).then(response => {
             data = response.data
             console.log(response.data);
         })
@@ -163,26 +163,28 @@ async function updateUser(id) {
             console.error('Ошибка:', error);
         });
         console.log(id);
-        const updatedUsername = prompt("Введите обновленное имя пользователя:");
-        const updatedPassword = prompt("Введите обновленный пароль:");
-        const updatedEmail = prompt("Введите обновленный адрес электронной почты:");
-        const updatedPhone = prompt("Введите обновленный номер телефона:");
-        const updatedAddress = prompt("Введите обновленный адрес:");
-        if (updatedUsername === null || updateUser === ""){
-            updateUsername = data.login
+        var updatedUsername = prompt("Введите обновленное имя пользователя:");
+        var updatedPassword = prompt("Введите обновленный пароль:");
+        var updatedEmail = prompt("Введите обновленный адрес электронной почты:");
+        var updatedPhone = prompt("Введите обновленный номер телефона:");
+        var updatedAddress = prompt("Введите обновленный адрес:");
+        console.log(updatedUsername.trim());
+        if (updatedUsername == null || updatedUsername.trim() == ""){
+            updatedUsername = data["login"]
         }
-        if (updatedPassword === null && updateUser === ""){
-            updatedPassword = data.password
+        if (updatedPassword === null || updatedPassword.trim() === ""){
+            updatedPassword = data["password"]
         }
-        if (updatedEmail === null && updateUser === ""){
-            updatedEmail = data.email
+        if (updatedEmail === null || updatedEmail.trim() === ""){
+            updatedEmail = data["email"]
         }
-        if (updatedPhone === null && updateUser === ""){
-            updatedPhone = data.number
+        if (updatedPhone === null || updatedPhone.trim() === ""){
+            updatedPhone = data["number"]
         }
-        if (updatedAddress === null && updateUser === ""){
-            updatedAddress = data.address
+        if (updatedAddress === null || updatedAddress.trim() === ""){
+            updatedAddress = data["address"]
         }
+        console.log({ "action": "update", "id": id, "login": updatedUsername, "password": updatedPassword, "email": updatedEmail, "number": updatedPhone, "address": updatedAddress});
         await axios.post("http://localhost:8080/admin", { "action": "update", "id": id, "login": updatedUsername, "password": updatedPassword, "email": updatedEmail, "number": updatedPhone, "address": updatedAddress})
             .then(response => {
                 data = response.data;
@@ -191,6 +193,7 @@ async function updateUser(id) {
             .catch(error => {
                 console.error('Ошибка:', error);
             });
+            getData()
     } catch (error) {
         console.error("Произошла ошибка при отправке запроса", error);
     }

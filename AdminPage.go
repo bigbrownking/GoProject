@@ -121,14 +121,18 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			} else {
 				objID, err := primitive.ObjectIDFromHex(requestJSON.Id)
-				newDate := bson.M{
-					"login":    requestJSON.Login,
-					"email":    requestJSON.Email,
-					"address":  requestJSON.Address,
-					"number":   requestJSON.PhoneNumber,
-					"password": requestJSON.Password}
 
-				updateResult, err := collection.UpdateOne(context.TODO(), bson.M{"_id": objID}, newDate)
+				update := bson.D{{Key: "$set",
+					Value: bson.M{
+						"login":    requestJSON.Login,
+						"email":    requestJSON.Email,
+						"address":  requestJSON.Address,
+						"number":   requestJSON.PhoneNumber,
+						"password": requestJSON.Password,
+					},
+				}}
+
+				updateResult, err := collection.UpdateOne(context.TODO(), bson.M{"_id": objID}, update)
 				responseJSON, err := json.Marshal(updateResult)
 				if err != nil {
 					http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
@@ -167,7 +171,6 @@ func AdminAll(w http.ResponseWriter, r *http.Request) {
 	filter := bson.M{}
 
 	cur, err := collection.Find(context.TODO(), filter)
-	fmt.Println(cur)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -179,7 +182,6 @@ func AdminAll(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Print(elem)
 
 		results = append(results, &elem)
 	}
