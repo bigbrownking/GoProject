@@ -39,76 +39,122 @@ document.querySelector('.sign_up').addEventListener('submit', async function(e) 
     return false
 })
 
-async function getData(){
+async function getData() {
     let data
-        try{
-            await axios.get("http://localhost:8080/admin/all").then(response => {
-                
-                data = response.data
-                console.log(response.data);
-            })
+    try {
+        await axios.get("http://localhost:8080/admin/all").then(response => {
+
+            data = response.data
+            console.log(response.data);
+        })
             .catch(error => {
                 console.error('Ошибка:', error);
             });
-            showUsers(data)
-        }
-        catch(error){
-            console.error("Произошла ошибка при отправке запроса", error);
-        }
+        showUsers(data)
+    }
+    catch (error) {
+        console.error("Произошла ошибка при отправке запроса", error);
+    }
 }
 
-function showUsers(data){
-    if(data){
+function showUsers(data) {
+    if (data) {
         let table = document.querySelector(".tableUsers")
         while (table.firstChild) {
             table.removeChild(table.firstChild);
-          }
-          table.style.border = "1px solid #000"
-          var tr = document.createElement('tr');
+        }
+        table.style.border = "1px solid #000"
+        var tr = document.createElement('tr');
         Object.keys(data[0]).map(key => {
             var td = document.createElement('td');
             td.innerText = key
             td.style.border = "1px solid #000"
             tr.appendChild(td)
-          })
+        })
         var tbdy = document.createElement('tbody');
         tbdy.appendChild(tr);
         for (let user of data) {
-          var tr = document.createElement('tr');
-          Object.keys(user).map((key, id) => {
-            var td = document.createElement('td');
-            td.innerText = user[key]
+            var tr = document.createElement('tr');
+            Object.keys(user).map((key, id) => {
+                var td = document.createElement('td');
+                td.innerText = user[key]
+                td.style.border = "1px solid #000"
+                td.style.padding = "3px"
+                tr.appendChild(td)
+            })
+            //_________________delete user______________________
+            var td = document.createElement('button');
+            td.innerText = "Delete"
+            td.id = user["Id"]
+            td.addEventListener("click", () => {
+                let item = document.getElementById(`${user["Id"]}`)
+                deleteUser(item.id)
+            })
             td.style.border = "1px solid #000"
             td.style.padding = "3px"
             tr.appendChild(td)
-          })
-          //_________________delete user______________________
-          var td = document.createElement('button');
-          td.innerText = "Delete"
-          td.id = user["Id"]
-          td.addEventListener("click",()=>{
-            let item = document.getElementById(`${user["Id"]}`)
-            deleteUser(item.id)
-          })
-          td.style.border = "1px solid #000"
-          td.style.padding = "3px"
-          tr.appendChild(td)
-          //__________________update user__________________
-          tr.id = user["Id"]
-          tbdy.appendChild(tr);
+            //__________________update user__________________
+            var tu = document.createElement('button');
+            tu.innerText = "Update";
+            tu.id = user["Id"]
+            tu.addEventListener("click", () => {
+                updateUser(user["Id"]);
+            });
+            tu.style.border = "1px solid #000";
+            tu.style.padding = "3px";
+            tr.appendChild(tu);
+
+            tbdy.appendChild(tr);
         }
         table.appendChild(tbdy);
 
-            
-        }
+
+    }
 
 }
 
-async function findUser(){
+async function findUser() {
     let id = document.querySelector(".userId")
     let data
-    try{
-        console.log( id.value);
+    try {
+        console.log(id.value);
+        await axios.post("http://localhost:8080/admin", { "action": "filter", "id": id.value }).then(response => {
+            data = response.data
+            console.log(response.data);
+        })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+        showUsers([data])
+    }
+    catch (error) {
+        console.error("Произошла ошибка при отправке запроса", error);
+    }
+}
+
+async function deleteUser(id) {
+    try {
+        console.log(id);
+        await axios.post("http://localhost:8080/admin", { "action": "delete", "id": id }).then(response => {
+            data = response.data
+            console.log(response.data);
+        })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+        if (data.status == 200) {
+            alert(data.message + " " + id)
+            getData()
+        }
+    }
+    catch (error) {
+        console.error("Произошла ошибка при отправке запроса", error);
+    }
+}
+
+async function updateUser(id) {
+    let data;
+    try {
         await axios.post("http://localhost:8080/admin", {"action": "filter", "id": id.value}).then(response => {
             data = response.data
             console.log(response.data);
@@ -116,34 +162,41 @@ async function findUser(){
         .catch(error => {
             console.error('Ошибка:', error);
         });
-        showUsers([data])
-    }
-    catch(error){
-        console.error("Произошла ошибка при отправке запроса", error);
-    }
-}
-
-async function deleteUser(id){
-    try{
-        console.log( id);
-        await axios.post("http://localhost:8080/admin", {"action": "delete", "id": id}).then(response => {
-            data = response.data
-            console.log(response.data);
-        })
-        .catch(error => {
-            console.error('Ошибка:', error);
-        });
-        if(data.status == 200){
-            alert(data.message + " " + id)
-            getData()
+        console.log(id);
+        const updatedUsername = prompt("Введите обновленное имя пользователя:");
+        const updatedPassword = prompt("Введите обновленный пароль:");
+        const updatedEmail = prompt("Введите обновленный адрес электронной почты:");
+        const updatedPhone = prompt("Введите обновленный номер телефона:");
+        const updatedAddress = prompt("Введите обновленный адрес:");
+        if (updatedUsername === null || updateUser === ""){
+            updateUsername = data.login
         }
-    }
-    catch(error){
+        if (updatedPassword === null && updateUser === ""){
+            updatedPassword = data.password
+        }
+        if (updatedEmail === null && updateUser === ""){
+            updatedEmail = data.email
+        }
+        if (updatedPhone === null && updateUser === ""){
+            updatedPhone = data.number
+        }
+        if (updatedAddress === null && updateUser === ""){
+            updatedAddress = data.address
+        }
+        await axios.post("http://localhost:8080/admin", { "action": "update", "id": id, "login": updatedUsername, "password": updatedPassword, "email": updatedEmail, "number": updatedPhone, "address": updatedAddress})
+            .then(response => {
+                data = response.data;
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+    } catch (error) {
         console.error("Произошла ошибка при отправке запроса", error);
     }
 }
 
-function leaveToBack(){
+function leaveToBack() {
     var domain = window.location.origin;
     window.location.assign(domain);
 }
