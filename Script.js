@@ -1,4 +1,4 @@
-function submitForm(e) {
+document.querySelector('.sign_up').addEventListener('submit', async function(e) {
     e.preventDefault();
     var domain = window.location.origin;
     var username = document.getElementById("username").value;
@@ -19,24 +19,25 @@ function submitForm(e) {
             "address": address
         };
         console.log(data);
-        fetch('http://localhost:8080/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-        .then(response => response.text())
-        .then(data => {
-            console.log('Успешно:', data);
-        })
-        .catch((error) => {
-            console.error('Ошибка:', error);
-        });
+        try{
+            await axios.post("http://localhost:8080/register", data).then(response => {
+                data = response.data
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.error('Ошибка:', error);
+            });
+            showUsers(data)
+        }
+        catch(error){
+            console.error("Произошла ошибка при отправке запроса", error);
+        }
         console.log(domain + "/AdminPage");
         window.location.assign(domain + "/AdminPage");
+        return false
     }
-}
+    return false
+})
 
 async function getData(){
     let data
