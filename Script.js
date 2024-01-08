@@ -1,6 +1,3 @@
-// let table = document.querySelector(".table")
-
-
 function submitForm(e) {
     e.preventDefault();
     var domain = window.location.origin;
@@ -15,12 +12,13 @@ function submitForm(e) {
     }
     else{
         var data = {
-            "username": username,
+            "login": username,
             "password": password,
             "email": email,
-            "phone": phone,
+            "number": phone,
             "address": address
         };
+        console.log(data);
         fetch('http://localhost:8080/register', {
             method: 'POST',
             headers: {
@@ -40,49 +38,108 @@ function submitForm(e) {
     }
 }
 
-document.getElementById("log_in").onclick = function() {
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
-    var data = {
-        "login": username,
-        "passwd": password
-    };
-    fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Успешный вход');
-        } else {
-            console.error('Неудачная попытка входа');
-        }
-    })
-    .catch(error => {
-        console.error('Ошибка:', error);
-    });
-    var domain = window.location.origin;
-    window.location.assign(domain + "/AdminPage");
-}
-
-function send(){
-    setTimeout(async()=>{
+async function getData(){
+    let data
         try{
-            await axios.post("http://localhost:8080/register", {
-	            "login": "EsimgaliKh",
-                "password":"fkmvflkvm",
-                "email": "fkvmldfkmv",
-                "number":"ldmokfsdmvk"
-        });
-        console.log("Успешно");
+            await axios.get("http://localhost:8080/admin/all").then(response => {
+                
+                data = response.data
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+            showUsers(data)
         }
         catch(error){
             console.error("Произошла ошибка при отправке запроса", error);
         }
-    });
+}
+
+function showUsers(data){
+    if(data){
+        let table = document.querySelector(".tableUsers")
+        while (table.firstChild) {
+            table.removeChild(table.firstChild);
+          }
+          table.style.border = "1px solid #000"
+          var tr = document.createElement('tr');
+        Object.keys(data[0]).map(key => {
+            var td = document.createElement('td');
+            td.innerText = key
+            td.style.border = "1px solid #000"
+            tr.appendChild(td)
+          })
+        var tbdy = document.createElement('tbody');
+        tbdy.appendChild(tr);
+        for (let user of data) {
+          var tr = document.createElement('tr');
+          Object.keys(user).map((key, id) => {
+            var td = document.createElement('td');
+            td.innerText = user[key]
+            td.style.border = "1px solid #000"
+            td.style.padding = "3px"
+            tr.appendChild(td)
+          })
+          //_________________delete user______________________
+          var td = document.createElement('button');
+          td.innerText = "Delete"
+          td.id = user["Id"]
+          td.addEventListener("click",()=>{
+            let item = document.getElementById(`${user["Id"]}`)
+            deleteUser(item.id)
+          })
+          td.style.border = "1px solid #000"
+          td.style.padding = "3px"
+          tr.appendChild(td)
+          //__________________update user__________________
+          tr.id = user["Id"]
+          tbdy.appendChild(tr);
+        }
+        table.appendChild(tbdy);
+
+            
+        }
+
+}
+
+async function findUser(){
+    let id = document.querySelector(".userId")
+    let data
+    try{
+        console.log( id.value);
+        await axios.post("http://localhost:8080/admin", {"action": "filter", "id": id.value}).then(response => {
+            data = response.data
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+        showUsers([data])
+    }
+    catch(error){
+        console.error("Произошла ошибка при отправке запроса", error);
+    }
+}
+
+async function deleteUser(id){
+    try{
+        console.log( id);
+        await axios.post("http://localhost:8080/admin", {"action": "delete", "id": id}).then(response => {
+            data = response.data
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+        if(data.status == 200){
+            alert(data.message + " " + id)
+            getData()
+        }
+    }
+    catch(error){
+        console.error("Произошла ошибка при отправке запроса", error);
+    }
 }
 
 function leaveToBack(){

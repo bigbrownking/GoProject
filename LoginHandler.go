@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"os"
 
@@ -26,16 +25,16 @@ type ResponseLogin struct {
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost {
-		body, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			http.Error(w, "Error reading request body", http.StatusInternalServerError)
-			return
-		}
+	if r.Method == http.MethodGet {
+		queryParams := r.URL.Query()
 
 		var requestJSON LoginRequest
-		err = json.Unmarshal(body, &requestJSON)
-		if err != nil || requestJSON.Login == "" {
+		requestJSON = LoginRequest{
+			Login:    queryParams.Get("login"),
+			Password: queryParams.Get("password"),
+		}
+		fmt.Fprintf(os.Stdout, "Received POST request with message: %s\n", requestJSON)
+		if requestJSON.Login == "" {
 			responseError := ResponseStatus{
 				Status:  http.StatusBadRequest,
 				Message: "Некорректное JSON-сообщение",
@@ -43,8 +42,6 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			sendJSONResponse(w, responseError)
 			return
 		}
-
-		fmt.Fprintf(os.Stdout, "Received POST request with message: %s\n", requestJSON)
 
 		//_________________________connect to MongoDb_____________________________________
 		serverAPI := options.ServerAPI(options.ServerAPIVersion1)
@@ -67,7 +64,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		//______________________________find login and password______________________
 		var result ResponseLogin
 		err = collection.FindOne(context.TODO(), requestJSON).Decode(&result)
-		fmt.Println(result.Id)
+		fmt.Println(result)
 
 		//___________________________send success response_________________________________________
 		response := ResponseLogin{

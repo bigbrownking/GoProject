@@ -8,14 +8,14 @@
 </head>
 <body>
     <h2 class="text-center mb-4">Вход</h2>
-    <form action="/AdminPage" method="post">
+    <form id="log_in">
         <label for="username" class="form-label">Логин:</label>
         <input type="text" class="form-control" id="username" name="username" required>
         <br>
         <label for="password" class="form-label">Пароль:</label>
         <input type="password" class="form-control" id="password" name="password" required>
         <br>
-        <button type="submit" class="btn btn-primary" id="log_in">Войти</button>
+        <button type="submit" class="btn btn-primary">Войти</button>
     </form>
 </body>
 <style>
@@ -27,4 +27,38 @@
 </style>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="./Script.js"></script>
+<script>
+    document.getElementById('log_in').addEventListener('submit', async function(e) {
+        var login
+    e.preventDefault()
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    var data = {
+        "login": username,
+        "password": password
+    };
+    console.log(data);
+   await axios.get("http://localhost:8080/login", { params: data})
+    .then(response => {
+        if (response.data.status == 200) {
+            console.log(response);
+            login = response.data.login
+        } else {
+            console.error('Неудачная попытка входа');
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+    });
+    if(login !== ""){
+        var domain = window.location.origin;
+        window.location.assign(domain + "/AdminPage");
+    }else{
+    var domain = window.location.origin;
+        window.location.assign(domain + "/loginPage");
+        alert("Неправильный логин или пароль")
+    }
+    return false;
+})
+</script>
 </html>

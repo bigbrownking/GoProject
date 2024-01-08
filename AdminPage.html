@@ -8,16 +8,22 @@
 </head>
 <body>
     <h2 class="text-center mb-4">Административная страница</h2>
-    <button class="table" onclick="send()">Send</button>
+    <button class="getData" onclick="getData()">Получить пользователей</button>
+    <div class="findUser">
+        <input class="userId" type="text" style="margin: 15px 15px 15px 0px;" placeholder="Введите id пользователя">
+        <button onclick="findUser()">Найти</button>
+    </div>
+    <div class="tableUsers" style="margin: 15px;"></div>
     <button onclick="leaveToBack()">Leave</button>
 </body>
 <style>
     body {
-        width: 30%;
-        height: 60%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         margin: auto;
     }   
 </style>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="./Script.js"></script>
+<script type="text/javascript" src="/Script.js"></script>
 </html>
