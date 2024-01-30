@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -154,8 +155,8 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			sortField := requestJSON.Login // Поле, по которому сортируем
-			sortOrder := 1                 // По умолчанию сортировка по возрастанию
+			sortField := requestJSON.Login                 // Поле, по которому сортируем
+			sortOrder, err := strconv.Atoi(requestJSON.Id) // По умолчанию сортировка по возрастанию
 
 			// if requestJSON.SortOrder == "desc" {
 			// 	sortOrder = -1 // Если порядок сортировки "desc", то сортировка по убыванию
