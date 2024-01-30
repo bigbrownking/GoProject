@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strconv"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -89,6 +88,41 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 			}
 			return
 		}
+		if requestJSON.Action == "filterLogin" {
+			if requestJSON.Login == "" {
+				responseError := ResponseStatus{
+					Status:  http.StatusBadRequest,
+					Message: "Не указан логин",
+				}
+				sendJSONResponse(w, responseError)
+				return
+			} else {
+				var results []ResponseAdmin
+				cursor, err := collection.Find(context.TODO(), bson.M{"login": bson.M{"$regex": primitive.Regex{Pattern: requestJSON.Login, Options: "i"}}})
+				if err != nil {
+					http.Error(w, "Error querying daytabase", http.StatusInternalServerError)
+					return
+				}
+				defer cursor.Close(context.Background())
+				for cursor.Next(context.Background()) {
+					var result ResponseAdmin
+					err := cursor.Decode(&result)
+					if err != nil {
+						http.Error(w, "Error decoding database result", http.StatusInternalServerError)
+						return
+					}
+					results = append(results, result)
+				}
+				responseJSON, err := json.Marshal(results)
+				if err != nil {
+					http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+					return
+				}
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(200)
+				w.Write(responseJSON)
+			}
+		}
 		if requestJSON.Action == "filter" {
 			if requestJSON.Id == "" {
 				responseError := ResponseStatus{
@@ -155,8 +189,8 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			sortField := requestJSON.Login                 // Поле, по которому сортируем
-			sortOrder, err := strconv.Atoi(requestJSON.Id) // По умолчанию сортировка по возрастанию
+			sortField := requestJSON.Login // Поле, по которому сортируем
+			sortOrder := 1                 // По умолчанию сортировка по возрастанию
 
 			// if requestJSON.SortOrder == "desc" {
 			// 	sortOrder = -1 // Если порядок сортировки "desc", то сортировка по убыванию
