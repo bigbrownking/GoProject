@@ -10,13 +10,23 @@
     <h2 class="text-center mb-4">Административная страница</h2>
     <button class="getData" onclick="getData()">Получить пользователей</button>
     <div class="findUser">
-        <input class="userId" type="text" style="margin: 15px 15px 15px 0px;" placeholder="Введите id пользователя">
+        <input class="userId" type="text" style="margin: 15px 5px 15px 0px;" placeholder="Введите id пользователя">
         <button onclick="findUser()">Найти</button>
-        <select id="sortLogin" onchange="changeSort()">
-            <label>Сортировать по логину</label>
-            <option value="-1">По убыванию</option>
-            <option value="1">По возрастанию</option>
-        </select>
+        
+        <div style="width: 100%; display: flex;">
+            <div style="display: flex; flex-direction: column; width: 188px; margin-right: 15px;" >
+                <input class="userInputLogin" oninput="searchUser()" placeholder="Введите Login пользователя">
+                <div style="position: relative;">
+                    <div class="findUserByLogin" style="position: fixed; width: 188px;"></div>
+                </div>
+            </div>
+            <select id="sortLogin" onchange="changeSort()">
+                <option value="">Сортировать по логину</option>
+                <option value="-1">По убыванию</option>
+                <option value="1">По возрастанию</option>
+            </select>
+        </div>
+        
     </div>
     <div class="tableUsers" style="margin: 15px;"></div>
     <button onclick="leaveToBack()">Leave</button>

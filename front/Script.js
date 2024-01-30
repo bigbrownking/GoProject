@@ -1,3 +1,4 @@
+var logins = []
 document.querySelector('.sign_up').addEventListener('submit', async function(e) {
     e.preventDefault();
     var domain = window.location.origin;
@@ -77,6 +78,9 @@ function showUsers(data) {
             var tr = document.createElement('tr');
             Object.keys(user).map((key, id) => {
                 var td = document.createElement('td');
+                if(key === "login"){
+                    logins.push(user[key])
+                }
                 td.innerText = user[key]
                 td.style.border = "1px solid #000"
                 td.style.padding = "3px"
@@ -110,20 +114,65 @@ function showUsers(data) {
     }
 
 }
+async function findUserByLogin(login){
+    let data
+    try {
+        await axios.post("http://localhost:8080/admin", { "action": "filterLogin", "login": login}).then(response => {
+            data = response.data
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+        let loginInput = document.querySelector(".userInputLogin")
+        loginInput.value = null
+        let select = document.querySelector(".findUserByLogin")
+        while (select.firstChild) {
+            select.removeChild(select.firstChild);
+        }
+        showUsers(data)
+    }
+    catch (error) {
+        console.error("Произошла ошибка при отправке запроса", error);
+    }
+}
+
+function searchUser(){
+    let login = document.querySelector(".userInputLogin").value
+    let select = document.querySelector(".findUserByLogin")
+    while (select.firstChild) {
+        select.removeChild(select.firstChild);
+    }
+    for(let log of logins){
+        let option = document.createElement("button")
+        console.log(log);
+        if(log.toLowerCase().includes(login.toLowerCase())){
+            option.innerText = log
+            option.id = log
+            option.addEventListener("click", () => {
+                findUserByLogin(log);
+            });
+            select.appendChild(option)
+        }
+    }
+}
 
 async function changeSort(){
     let sortOrder = document.querySelector("#sortLogin").value
     console.log(sortOrder);
-    try {
-        const response = await axios.post("http://localhost:8080/admin", {
-            "action": "sort",
-            "Login": "login",
-            "Id": sortOrder,
-        });
-        showUsers(response.data);
-    } catch (error) {
-        console.error("Произошла ошибка при отправке запроса", error);
+    if(sortOrder !== ""){
+        try {
+            const response = await axios.post("http://localhost:8080/admin", {
+                "action": "sort",
+                "Login": "login",
+                "Id": sortOrder,
+            });
+            showUsers(response.data);
+        } catch (error) {
+            console.error("Произошла ошибка при отправке запроса", error);
+        }
     }
+    
 }
 
 async function findUser() {
