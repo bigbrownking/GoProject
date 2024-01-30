@@ -103,16 +103,6 @@ function showUsers(data) {
             tu.style.border = "1px solid #000";
             tu.style.padding = "3px";
             tr.appendChild(tu);
-            //__________________sort users__________________
-            var ts = document.createElement('button');
-            ts.innerText = "Sort by name";
-            ts.login = user["Login"]
-            ts.addEventListener("click", () => {
-                sortUsers(user["Login"]);
-            });
-            ts.style.border = "1px solid #000";
-            ts.style.padding = "3px";
-            tr.appendChild(ts);
 
             tbdy.appendChild(tr);
         }
@@ -121,11 +111,14 @@ function showUsers(data) {
 
 }
 
-async function sortUsers(Login) {
+async function changeSort(){
+    let sortOrder = document.querySelector("#sortLogin").value
+    console.log(sortOrder);
     try {
         const response = await axios.post("http://localhost:8080/admin", {
             "action": "sort",
-            "Login": Login
+            "Login": "login",
+            "Id": sortOrder,
         });
         showUsers(response.data);
     } catch (error) {

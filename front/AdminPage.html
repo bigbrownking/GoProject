@@ -12,7 +12,11 @@
     <div class="findUser">
         <input class="userId" type="text" style="margin: 15px 15px 15px 0px;" placeholder="Введите id пользователя">
         <button onclick="findUser()">Найти</button>
-        <button onclick="sortUsers()">Сортировать по логину</button>
+        <select id="sortLogin" onchange="changeSort()">
+            <label>Сортировать по логину</label>
+            <option value="-1">По убыванию</option>
+            <option value="1">По возрастанию</option>
+        </select>
     </div>
     <div class="tableUsers" style="margin: 15px;"></div>
     <button onclick="leaveToBack()">Leave</button>

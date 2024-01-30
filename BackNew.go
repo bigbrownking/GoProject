@@ -45,7 +45,7 @@ func ProductsPage(w http.ResponseWriter, r *http.Request) {
 		Title: "Products",
 	}
 
-	tmpl, err := template.ParseFiles("Products.html")
+	tmpl, err := template.ParseFiles("./front/Products.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -62,7 +62,7 @@ func CartPage(w http.ResponseWriter, r *http.Request) {
 		Title: "Cart",
 	}
 
-	tmpl, err := template.ParseFiles("Cart.html")
+	tmpl, err := template.ParseFiles("./front/Cart.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -75,7 +75,7 @@ func CartPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func jsFile(w http.ResponseWriter, r *http.Request) {
-	data, err := ioutil.ReadFile("Script.js")
+	data, err := ioutil.ReadFile("./front/Script.js")
 	if err != nil {
 		http.Error(w, "Couldn't read file", http.StatusInternalServerError)
 		return
@@ -88,8 +88,7 @@ func AdminPage(w http.ResponseWriter, r *http.Request) {
 	pageVariables := PageVariables{
 		Title: "Admin Page",
 	}
-
-	tmpl, err := template.ParseFiles("AdminPage.html")
+	tmpl, err := template.ParseFiles("./front/AdminPage.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -106,7 +105,7 @@ func LoginPage(w http.ResponseWriter, r *http.Request) {
 		Title: "Login Page",
 	}
 
-	tmpl, err := template.ParseFiles("LoginPage.html")
+	tmpl, err := template.ParseFiles("./front/LoginPage.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -123,7 +122,7 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 		Title: "Registration Page",
 	}
 
-	tmpl, err := template.ParseFiles("Registration.html")
+	tmpl, err := template.ParseFiles("./front/Registration.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
