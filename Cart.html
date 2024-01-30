@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body style="padding-bottom: 300px;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="Home page.html">Главная</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse ml-2" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="Cart.html"><span id="cart-icon">🛒</span><span id="cart-badge" class="badge">0</span>Корзина</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="Products.html">Продукты</a>
+        </li>
+        <li class="nav-item">
+          <a id="admin" class="nav-link" href="Administrative.html">Административная страница</a>
+        </li>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ol class="navbar-nav">
+        <li class="nav-item">
+          <button id="loginBtn" type="button" class="btn" data-toggle="modal" data-target="#loginModal">
+            Войти
+          </button>
+          <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="loginModalLabel">Войти</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="loginForm">
+                    <div class="form-group">
+                      <label for="login-email">Email:</label>
+                      <input type="email" class="form-control" id="login-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="login-password">Пароль:</label>
+                      <input type="password" class="form-control" id="login-password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-info">Войти</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button id="registerBtn" type="button" class="btn" data-toggle="modal" data-target="#registerModal">
+            Регистрация
+          </button>
+          <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="registerModalLabel">Регистрация</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h2 class="text-center mb-4 text-dark">Создать аккаунт</h2>
+                  <form id='registrationForm'>
+                    <div class="form-group text-dark">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div id="emailFeedback" class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group text-dark">
+                        <label for="username">Имя:</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                        <div id="usernameFeedback" class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group text-dark">
+                        <label for="password">Пароль:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        <div id="passwordFeedback" class="invalid-feedback"></div>
+                    </div>
+                    <button type="submit" class="btn btn-info">Регистрация</button>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item" id="usernameDisplay" style="display: none;">
+          <span class="nav-link">Добро пожаловать, <span id="loggedInUsername"></span>!</span>
+        </li>
+        <li>
+          <button id="logoutBtn" class="btn btn-danger" style="display: none;">Logout</button>
+        </li>
+      </ol>
+    </div>
+  </nav>
+  <script>
+    if(localStorage.getItem('login-email')!=='admin@mail.ru'){
+      document.getElementById('admin').style.display = 'none';
+    }
+  </script>
+  <main class="container-fluid mt-3 border border-warning py-3">
+    <h2 class="mb-4"><strong>Ваша корзина</strong></h2>
+    <div id="cart-items"></div>
+    <div class="cart-total">
+        <p><strong>Всего:</strong> $<span id="cart-total">0.00</span></p>
+    </div>
+    <button class="btn btn-danger clear-cart">Очистить корзину</button>
+    <button class="btn btn-success" onclick="checkout()">Оформить заказ</button>
+    <div id="myModal">
+      <div id="modalContent">
+        <span id="closeModal">&times;</span>
+        <h2>Введите данные для оплаты</h2>
+        <form id="paymentForm">
+          <hr>
+          <ul>
+            <li>
+              <label for="cardNumber">Номер карты:</label>
+              <input type="text" id="cardNumber" maxlength="16">
+              <div id="cardNumberFeedback" class="invalid-feedback my-2"></div>
+            </li>
+            <li>
+              <label for="expiryDate">Срок действия (мм/гг):</label>
+              <input type="text" id="expiryDate" maxlength="5">
+              <div id="expiryDateFeedback" class="invalid-feedback my-2"></div>
+            </li>
+            <li>
+              <label for="cvv">CVV:</label>
+              <input type="text" id="cvv" maxlength="3">
+              <div id="cvvFeedback" class="invalid-feedback my-2"></div>
+            </li>
+            <li>
+              <label for="deliveryAddress">Адрес доставки:</label>
+              <input type="text" id="deliveryAddress" name="deliveryAddress" required>
+            </li>
+          </ul>
+          <button type="button" onclick="processPayment()">Оплатить</button>
+        </form>
+      </div>
+    </div>
+      <style>
+        #myModal {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+    
+        #modalContent {
+          position: absolute;
+          top: 40%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+        }
+    
+        #closeModal {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          cursor: pointer;
+        }
+      </style>
+    <script>    
+      function updateCartDisplay() {
+        var cart = JSON.parse(localStorage.getItem('cart'));
+        var cartItemsContainer = document.getElementById("cart-items");
+        cartItemsContainer.innerHTML = '';
+    
+        if (cart && cart.items) {
+        cart.items.forEach(function(item) {
+          var cartItemDiv = document.createElement("div");
+          cartItemDiv.className = "cart-item";
+          cartItemDiv.innerHTML = `
+            <h4><strong>${item.name}</strong></h4>
+            <p><strong>Price:</strong> $${(item.price * item.quantity).toFixed(2)}</p>
+            <p><strong>Quantity:</strong>
+              <button class="btn btn-sm btn-secondary" onclick="decrementQuantity(${item.id})">-</button>
+              <input type="number" id="quantity-${item.id}" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
+              <button class="btn btn-sm btn-secondary" onclick="incrementQuantity(${item.id})">+</button>
+            </p>
+            <button class="btn btn-danger btn-sm" onclick="removeFromCart(${item.id})">Удалить</button>
+          `;
+          cartItemsContainer.appendChild(cartItemDiv);
+        });
+        }
+        var cartTotal = document.getElementById("cart-total");
+        cartTotal.textContent = cart && cart.total ? cart.total.toFixed(2) : '0.00';
+      }
+
+      function removeFromCart(productId) {
+        var cart = JSON.parse(localStorage.getItem('cart'));
+        
+        if (!cart || !cart.items) {
+          return;
+        }
+
+        cart.items = cart.items.filter(function(item) {
+          return item.id !== productId;
+        });
+
+        cart.total = cart.items.reduce(function(total, item) {
+          return total + item.price;
+        }, 0);
+        
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        updateCartDisplay();
+        updateCartBadge();
+      }
+
+    
+      document.querySelector(".clear-cart").addEventListener("click", function() {
+        localStorage.removeItem('cart');
+        updateCartDisplay();
+        updateCartBadge();
+      });
+    
+      updateCartDisplay();
+      updateCartBadge();
+
+    function incrementQuantity(productId) {
+      changeQuantity(productId, 1);
+      updateCartDisplay();
+      updateCartBadge();
+    }
+
+    function decrementQuantity(productId) {
+      changeQuantity(productId, -1);
+      updateCartDisplay();
+      updateCartBadge();
+    }
+
+    function changeQuantity(productId, change) {
+      var cart = JSON.parse(localStorage.getItem('cart')) || { items: [], total: 0 };
+
+      var existingItem = cart.items.find(item => item.id === productId);
+
+      if (existingItem) {
+        existingItem.quantity += change;
+        if (existingItem.quantity <= 0) {
+          cart.items = cart.items.filter(item => item.id !== productId);
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+
+      cart.total = cart.items.reduce(function(total, item) {
+        return total + item.price * item.quantity;
+      }, 0);
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      updateCartDisplay();
+      updateCartBadge();
+    }
+
+    function updateQuantity(productId, newQuantity) {
+      var cart = JSON.parse(localStorage.getItem('cart'));
+
+      if (!cart || !cart.items) {
+        return;
+      }
+
+      cart.items.forEach(function(item) {
+        if (item.id === productId) {
+          item.quantity = parseInt(newQuantity, 10); 
+        }
+      });
+
+      cart.total = cart.items.reduce(function(total, item) {
+        return total + item.price * item.quantity;
+      }, 0);
+
+      if (newQuantity < 1) {
+        cart.items = cart.items.filter(item => item.id !== productId);
+        cart.total = cart.items.reduce(function(total, item) {
+        return 0;
+      }, 0);
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      updateCartDisplay();
+      updateCartBadge();
+    }
+
+    function checkout() {
+      var cart = JSON.parse(localStorage.getItem('cart'));
+      if (!cart || !cart.items.length) {
+        alert("Ваша корзина пуста!");
+        return;
+      }
+
+      document.getElementById('myModal').style.display = 'block';
+    }
+
+    function isValidCardNumber(cardNumber) {
+            var cardNumberRegex = /^[0-9]{16}$/;
+            return cardNumberRegex.test(cardNumber);
+        }
+
+        function isValidExpiryDate(expiryDate) {
+            var expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+            return expiryDateRegex.test(expiryDate);
+        }
+
+        function isValidCVV(cvv) {
+            var cvvRegex = /^[0-9]{3}$/;
+            return cvvRegex.test(cvv);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var cardNumberInput = document.getElementById('cardNumber');
+            cardNumberInput.addEventListener('input', function (e) {
+                validateInput(e.target, 'cardNumberFeedback', isValidCardNumber);
+            });
+
+            var expiryDateInput = document.getElementById('expiryDate');
+            expiryDateInput.addEventListener('input', function (e) {
+                validateInput(e.target, 'expiryDateFeedback', isValidExpiryDate);
+            });
+
+            var cvvInput = document.getElementById('cvv');
+            cvvInput.addEventListener('input', function (e) {
+                validateInput(e.target, 'cvvFeedback', isValidCVV);
+            });
+        });
+
+        function validateInput(inputElement, feedbackId, validationFunction) {
+            var feedbackElement = document.getElementById(feedbackId);
+            var inputValue = inputElement.value.trim();
+
+            if (!validationFunction(inputValue)) {
+                feedbackElement.textContent = 'Введите корректные данные';
+                inputElement.classList.add('is-invalid');
+            } else {
+                inputElement.classList.remove('is-invalid');
+                feedbackElement.textContent = '';
+            }
+        }
+
+      function processPayment() {
+        var cardNumber = document.getElementById('cardNumber').value;
+        var expiryDate = document.getElementById('expiryDate').value;
+        var cvv = document.getElementById('cvv').value;
+        var deliveryAddress = document.getElementById('deliveryAddress').value;
+
+        if (!cardNumber || !expiryDate || !cvv || !deliveryAddress) {
+          alert("Пожалуйста, заполните все поля формы.");
+          return;
+        }
+
+        if (!isValidCardNumber(cardNumber) || !isValidExpiryDate(expiryDate) || !isValidCVV(cvv)) {
+          alert("Пожалуйста, введите корректные данные.");
+          return;
+        }
+
+      document.getElementById('myModal').style.display = 'none';
+      
+      alert("Вас обманули на деньги!")
+
+      localStorage.removeItem('cart');
+      updateCartDisplay();
+      updateCartBadge();
+    }
+
+    document.getElementById('closeModal').addEventListener('click', function() {
+      document.getElementById('myModal').style.display = 'none';
+    });
+
+      window.addEventListener('storage', function(event) {
+        if (event.key === 'cartUpdated' && event.newValue === 'true') {
+          updateCartDisplay();
+          updateCartBadge();
+          localStorage.removeItem('cartUpdated');
+          updateCartDisplay();
+          updateCartBadge();
+        }
+      });
+
+      function updateCartBadge() {
+        var cart = JSON.parse(localStorage.getItem('cart')) || { items: [], total: 0 };
+        var badge = document.getElementById('cart-badge');
+        if (badge) {
+          badge.textContent = cart.items.reduce((acc, item) => acc + item.quantity, 0);
+        }
+      }
+
+
+      document.addEventListener('DOMContentLoaded', function() {
+        updateCartDisplay();
+        updateCartBadge();
+      });
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    function validateEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+    document.getElementById('email').addEventListener('input', function(e){
+      const emailBox = e.target;
+      const emailFeedback = document.getElementById('emailFeedback');
+      
+      if (!validateEmail(emailBox.value)) {
+        emailBox.classList.add('is-invalid');
+        emailFeedback.textContent = 'Неверный формат email';
+      } else {
+        emailBox.classList.remove('is-invalid');
+        emailFeedback.textContent = '';
+      }
+    });
+    function validateUsername(username) {
+      return /^[a-zA-Z0-9_]{3,}$/.test(username); 
+    }
+    function validatePassword(password) {
+      return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9]{8,}$/.test(password);
+    }
+
+    $('#registerModal').on('shown.bs.modal', function () {
+      document.getElementById('username').classList.remove('is-invalid');
+      document.getElementById('password').classList.remove('is-invalid');
+      document.getElementById('usernameFeedback').textContent = '';
+      document.getElementById('passwordFeedback').textContent = '';
+    });
+    document.getElementById('username').addEventListener('input', function(e){
+      var feedbackElement = document.getElementById('usernameFeedback');
+      if (!validateUsername(e.target.value)) {
+        feedbackElement.textContent = 'Никнейм должен быть не менее 3 символов и содержать только английские буквы, цифры и подчеркивания.';
+        e.target.classList.add('is-invalid');
+      } else {
+        e.target.classList.remove('is-invalid');
+        feedbackElement.textContent = '';
+      }
+    });
+    document.getElementById('password').addEventListener('input', function(e){
+      var feedbackElement = document.getElementById('passwordFeedback');
+      if (!validatePassword(e.target.value)) {
+        feedbackElement.textContent = 'Пароль должен быть не менее 8 символов и хоть одну заглавную, строчную английскую букву и хотя бы одну цифру';
+        e.target.classList.add('is-invalid');
+      } else {
+        e.target.classList.remove('is-invalid');
+        feedbackElement.textContent = '';
+      }
+    });
+
+    });
+
+  document.addEventListener("DOMContentLoaded", function(){
+
+  function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  document.getElementById('login-email').addEventListener('input', function(e){
+    const emailBox = e.target;
+    
+    if (!validateEmail(emailBox.value)) {
+      emailBox.classList.add('is-invalid');
+    } else {
+      emailBox.classList.remove('is-invalid');
+    }
+  });
+
+  document.getElementById('login-password').addEventListener('input', function(e){
+    const passwordBox = e.target;
+    
+    if (passwordBox.value.length < 8) { 
+      passwordBox.classList.add('is-invalid');
+    } else {
+      passwordBox.classList.remove('is-invalid');
+    }
+  });
+  });
+
+  document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      const usersData = JSON.parse(localStorage.getItem('users')) || [];
+
+      if (email === 'admin@mail.ru' && password === 'Admin123') {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('login-email', email);
+        window.location.href = "Administrative.html";
+      }
+      else {
+        const user = usersData.find(u => u.email === email && u.password === password);
+        if (user) {
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('login-email', email);
+          window.location.href = "Products.html";
+        } else {
+          alert('Invalid email or password');
+        }
+      }
+    });
+
+    window.addEventListener('load', function() {
+      const isLoggedIn = localStorage.getItem('isLoggedIn'); 
+      if (isLoggedIn === 'true') {
+        const email = localStorage.getItem('login-email');
+        const username = getUsernameByEmail(email);
+        document.getElementById('loginBtn').style.display = 'none';
+        document.getElementById('registerBtn').style.display = 'none';  
+        document.getElementById('logoutBtn').style.display = 'inline-block';
+        document.getElementById('usernameDisplay').style.display = 'inline-block';
+        document.getElementById('loggedInUsername').textContent = username;
+        logoutBtn.addEventListener('click', function() {
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('login-email');
+          window.location.reload();
+        });
+      }
+    });
+    function getUsernameByEmail(email) {
+      const usersData = JSON.parse(localStorage.getItem('users')) || [];
+      const user = usersData.find(u => u.email === email);
+      return user ? user.username : '';
+    }
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const usersData = JSON.parse(localStorage.getItem('users')) || [];
+
+      const isExistingUser = usersData.some(user => user.email === email);
+
+      if (!isExistingUser) {
+        const newUser = {
+          email: email,
+          username: username,
+          password: password
+        };
+
+        usersData.push(newUser);
+
+        localStorage.setItem('users', JSON.stringify(usersData));
+
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('login-email', email);
+        window.location.href = "Cart.html";
+      } else {
+        alert('Пользователь с таким email уже зарегистрирован');
+      }
+    });
+
+    if(localStorage.getItem('isLoggedIn') === 'true'){
+
+    }
+  </script> 
+
+</main>
+</body>
+<footer class="bg-dark text-white fixed-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Контакты</h4>
+          <p>Адрес: SE-2206</p>
+          <p>Email: KrutoySait@gmail.com</p>
+          <p>Телефон: +7 (777) 777-7777</p>
+        </div>
+        <div class="col-md-6">
+          <h4>Социальные сети</h4>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Facebook</a></li>
+            <li class="list-inline-item"><a href="#">Twitter</a></li>
+            <li class="list-inline-item"><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <p class="text-center">&copy; 2023 WEB TECHNOLOGY</p>
+        </div>
+      </div>
+    </div>
+</footer>
+</html>

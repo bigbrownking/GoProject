@@ -144,6 +144,54 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 				w.Write(responseJSON)
 			}
 		}
+		if requestJSON.Action == "sort" {
+			if requestJSON.Login == "" {
+				responseError := ResponseStatus{
+					Status:  http.StatusBadRequest,
+					Message: "Логин пустой",
+				}
+				sendJSONResponse(w, responseError)
+				return
+			}
+
+			sortField := requestJSON.Login // Поле, по которому сортируем
+			sortOrder := 1                 // По умолчанию сортировка по возрастанию
+
+			// if requestJSON.SortOrder == "desc" {
+			// 	sortOrder = -1 // Если порядок сортировки "desc", то сортировка по убыванию
+			// }
+
+			sortOptions := bson.D{{Key: sortField, Value: sortOrder}}
+			cursor, err := collection.Find(context.TODO(), bson.D{}, options.Find().SetSort(sortOptions))
+			if err != nil {
+				log.Fatal(err)
+			}
+			var results []*ResponseAdmin
+			for cursor.Next(context.TODO()) {
+
+				var elem ResponseAdmin
+				err := cursor.Decode(&elem)
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				results = append(results, &elem)
+			}
+			if err := cursor.Err(); err != nil {
+				log.Fatal(err)
+			}
+			cursor.Close(context.TODO())
+			responseJSON, err := json.Marshal(results)
+			if err != nil {
+				http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(200)
+
+			w.Write(responseJSON)
+		}
 	}
 }
 

@@ -103,14 +103,34 @@ function showUsers(data) {
             tu.style.border = "1px solid #000";
             tu.style.padding = "3px";
             tr.appendChild(tu);
+            //__________________sort users__________________
+            var ts = document.createElement('button');
+            ts.innerText = "Sort by name";
+            ts.login = user["Login"]
+            ts.addEventListener("click", () => {
+                sortUsers(user["Login"]);
+            });
+            ts.style.border = "1px solid #000";
+            ts.style.padding = "3px";
+            tr.appendChild(ts);
 
             tbdy.appendChild(tr);
         }
         table.appendChild(tbdy);
-
-
     }
 
+}
+
+async function sortUsers(Login) {
+    try {
+        const response = await axios.post("http://localhost:8080/admin", {
+            "action": "sort",
+            "Login": Login
+        });
+        showUsers(response.data);
+    } catch (error) {
+        console.error("Произошла ошибка при отправке запроса", error);
+    }
 }
 
 async function findUser() {

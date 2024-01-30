@@ -24,7 +24,11 @@ func main() {
 	http.HandleFunc("/Script.js", jsFile)
 	http.HandleFunc("/loginPage", LoginPage)
 	http.HandleFunc("/AdminPage", AdminPage)
+	http.HandleFunc("/ProductsPage", ProductsPage)
+	http.HandleFunc("/CartPage", CartPage)
 	http.HandleFunc("/login", LoginHandler)       //get
+	http.HandleFunc("/Products", ProductsHandler) //hz
+	http.HandleFunc("/Cart", CartHandler)         //hz
 	http.HandleFunc("/register", RegisterHandler) //post
 	http.HandleFunc("/admin", AdminHandler)       //post
 	http.HandleFunc("/admin/all", AdminAll)       //get
@@ -34,6 +38,40 @@ func main() {
 		fmt.Println("Error starting server:", err)
 	}
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+}
+
+func ProductsPage(w http.ResponseWriter, r *http.Request) {
+	pageVariables := PageVariables{
+		Title: "Products",
+	}
+
+	tmpl, err := template.ParseFiles("Products.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, pageVariables)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func CartPage(w http.ResponseWriter, r *http.Request) {
+	pageVariables := PageVariables{
+		Title: "Cart",
+	}
+
+	tmpl, err := template.ParseFiles("Cart.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, pageVariables)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func jsFile(w http.ResponseWriter, r *http.Request) {
