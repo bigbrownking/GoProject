@@ -74,7 +74,8 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		responseJSON, err := json.Marshal(response)
 		if err != nil {
-			http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+			logger.WithError(err).Error("Error encoding JSON response")
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 

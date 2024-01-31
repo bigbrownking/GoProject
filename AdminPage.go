@@ -37,7 +37,8 @@ type ResponseAdmin struct {
 func AdminHandler(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		http.Error(w, "Error reading request body", http.StatusInternalServerError)
+		logger.WithError(err).Error("Error reading request body")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -77,7 +78,8 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 			} else {
 				objID, err := primitive.ObjectIDFromHex(requestJSON.Id)
 				if err != nil {
-					http.Error(w, "Error reading request body", http.StatusInternalServerError)
+					logger.WithError(err).Error("Error reading request body")
+					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return
 				}
 				collection.DeleteOne(context.TODO(), bson.M{"_id": objID})
@@ -101,7 +103,8 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 				var results []ResponseAdmin
 				cursor, err := collection.Find(context.TODO(), bson.M{"login": bson.M{"$regex": primitive.Regex{Pattern: requestJSON.Login, Options: "i"}}})
 				if err != nil {
-					http.Error(w, "Error querying daytabase", http.StatusInternalServerError)
+					logger.WithError(err).Error("Error querying daytabase")
+					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return
 				}
 				defer cursor.Close(context.Background())
@@ -109,14 +112,16 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 					var result ResponseAdmin
 					err := cursor.Decode(&result)
 					if err != nil {
-						http.Error(w, "Error decoding database result", http.StatusInternalServerError)
+						logger.WithError(err).Error("Error decoding database result")
+						http.Error(w, err.Error(), http.StatusInternalServerError)
 						return
 					}
 					results = append(results, result)
 				}
 				responseJSON, err := json.Marshal(results)
 				if err != nil {
-					http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+					logger.WithError(err).Error("Error encoding JSON response")
+					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return
 				}
 				w.Header().Set("Content-Type", "application/json")
@@ -138,7 +143,8 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 				err = collection.FindOne(context.TODO(), bson.M{"_id": objID}).Decode(&result)
 				responseJSON, err := json.Marshal(result)
 				if err != nil {
-					http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+					logger.WithError(err).Error("Error encoding JSON response")
+					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return
 				}
 
@@ -171,7 +177,8 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 				updateResult, err := collection.UpdateOne(context.TODO(), bson.M{"_id": objID}, update)
 				responseJSON, err := json.Marshal(updateResult)
 				if err != nil {
-					http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+					logger.WithError(err).Error("Error encoding JSON response")
+					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return
 				}
 
@@ -190,14 +197,10 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			sortField := requestJSON.Login                 // Поле, по которому сортируем
-			sortOrder, err := strconv.Atoi(requestJSON.Id) // По умолчанию сортировка по возрастанию
-
-			// if requestJSON.SortOrder == "desc" {
-			// 	sortOrder = -1 // Если порядок сортировки "desc", то сортировка по убыванию
-			// }
-
+			sortField := requestJSON.Login
+			sortOrder, err := strconv.Atoi(requestJSON.Id)
 			sortOptions := bson.D{{Key: sortField, Value: sortOrder}}
+
 			cursor, err := collection.Find(context.TODO(), bson.D{}, options.Find().SetSort(sortOptions))
 			if err != nil {
 				log.Fatal(err)
@@ -219,7 +222,8 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 			cursor.Close(context.TODO())
 			responseJSON, err := json.Marshal(results)
 			if err != nil {
-				http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+				logger.WithError(err).Error("Error encoding JSON response")
+				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 
@@ -275,7 +279,8 @@ func AdminAll(w http.ResponseWriter, r *http.Request) {
 	cur.Close(context.TODO())
 	responseJSON, err := json.Marshal(results)
 	if err != nil {
-		http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+		logger.WithError(err).Error("Error encoding JSON response")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 

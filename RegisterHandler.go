@@ -31,7 +31,8 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		body, err := ioutil.ReadAll(r.Body)
 		if err != nil {
-			http.Error(w, "Error reading request body", http.StatusInternalServerError)
+			logger.WithError(err).Error("Error reading request body")
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
@@ -93,7 +94,8 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 
 		responseJSON, err := json.Marshal(response)
 		if err != nil {
-			http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+			logger.WithError(err).Error("Error encoding JSON response")
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
