@@ -27,24 +27,34 @@ var logger = logrus.New()
 
 func main() {
 	logger.SetFormatter(&logrus.JSONFormatter{})
-	http.HandleFunc("/", HomePage)
-	http.HandleFunc("/Script.js", jsFile)
-	http.HandleFunc("/loginPage", LoginPage)
-	http.HandleFunc("/AdminPage", AdminPage)
-	http.HandleFunc("/ProductsPage", ProductsPage)
-	http.HandleFunc("/CartPage", CartPage)
-	http.HandleFunc("/login", LoginHandler)       //get
-	http.HandleFunc("/Products", ProductsHandler) //hz
-	http.HandleFunc("/Cart", CartHandler)         //hz
-	http.HandleFunc("/register", RegisterHandler) //post
-	http.HandleFunc("/admin", AdminHandler)       //post
-	http.HandleFunc("/admin/all", AdminAll)       //get
+	http.HandleFunc("/", rateLimit(HomePage))
+	http.HandleFunc("/Script.js", rateLimit(jsFile))
+	http.HandleFunc("/loginPage", rateLimit(LoginPage))
+	http.HandleFunc("/AdminPage", rateLimit(AdminPage))
+	http.HandleFunc("/ProductsPage", rateLimit(ProductsPage))
+	http.HandleFunc("/CartPage", rateLimit(CartPage))
+	http.HandleFunc("/login", rateLimit(LoginHandler))       //get
+	http.HandleFunc("/Products", rateLimit(ProductsHandler)) //hz
+	http.HandleFunc("/Cart", rateLimit(CartHandler))         //hz
+	http.HandleFunc("/register", rateLimit(RegisterHandler)) //post
+	http.HandleFunc("/admin", rateLimit(AdminHandler))       //post
+	http.HandleFunc("/admin/all", rateLimit(AdminAll))       //get
 	logger.Info("Server listening on :8080")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		logger.WithError(err).Error("Error starting server")
 	}
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+}
+
+func rateLimit(h http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if !limiter.Allow() {
+			http.Error(w, "Rate limit exceeded", http.StatusTooManyRequests)
+			return
+		}
+		h(w, r)
+	}
 }
 
 func ProductsPage(w http.ResponseWriter, r *http.Request) {
