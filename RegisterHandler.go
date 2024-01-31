@@ -67,7 +67,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
 		collection := client.Database("mydb").Collection("users")
 
-		//________________________Нахождение и insert_____________________________
+		//________________________Find and insert_____________________________
 		var result ResponseRegister
 		err = collection.FindOne(context.TODO(), bson.M{"login": requestJSON.Login}).Decode(&result)
 		fmt.Println(result)

@@ -1,10 +1,15 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"html/template"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/sirupsen/logrus"
 	"golang.org/x/time/rate"
@@ -33,18 +38,38 @@ func main() {
 	http.HandleFunc("/AdminPage", rateLimit(AdminPage))
 	http.HandleFunc("/ProductsPage", rateLimit(ProductsPage))
 	http.HandleFunc("/CartPage", rateLimit(CartPage))
-	http.HandleFunc("/login", rateLimit(LoginHandler))       //get
-	http.HandleFunc("/Products", rateLimit(ProductsHandler)) //hz
-	http.HandleFunc("/Cart", rateLimit(CartHandler))         //hz
-	http.HandleFunc("/register", rateLimit(RegisterHandler)) //post
-	http.HandleFunc("/admin", rateLimit(AdminHandler))       //post
-	http.HandleFunc("/admin/all", rateLimit(AdminAll))       //get
-	logger.Info("Server listening on :8080")
-	err := http.ListenAndServe(":8080", nil)
-	if err != nil {
-		logger.WithError(err).Error("Error starting server")
+	http.HandleFunc("/login", rateLimit(LoginHandler))
+	http.HandleFunc("/Products", rateLimit(ProductsHandler))
+	http.HandleFunc("/Cart", rateLimit(CartHandler))
+	http.HandleFunc("/register", rateLimit(RegisterHandler))
+	http.HandleFunc("/admin", rateLimit(AdminHandler))
+	http.HandleFunc("/admin/all", rateLimit(AdminAll))
+
+	server := &http.Server{
+		Addr:    ":8080",
+		Handler: nil,
 	}
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
+	go func() {
+		logger.Info("Server listening on :8080")
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			logger.WithError(err).Error("Error starting server")
+		}
+	}()
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+	logger.Info("Shutting down server...")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	if err := server.Shutdown(ctx); err != nil {
+		logger.WithError(err).Error("Error shutting down server")
+	}
+
+	logger.Info("Server stopped")
 }
 
 func rateLimit(h http.HandlerFunc) http.HandlerFunc {
