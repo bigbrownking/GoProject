@@ -45,7 +45,7 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		logger.WithError(err).Error("Error reading request body")
+		log.Println("Error reading request body")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
