@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
@@ -25,6 +26,12 @@ type ResponseLogin struct {
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
+	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatal("Failed to open log file:", err)
+	}
+	defer file.Close()
+	log.SetOutput(file)
 	if r.Method == http.MethodGet {
 		queryParams := r.URL.Query()
 
@@ -58,13 +65,13 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
 			panic(err)
 		}
-		fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+		log.Println("Pinged your deployment. You successfully connected to MongoDB!")
 		collection := client.Database("mydb").Collection("users")
 
 		//______________________________find login and password______________________
 		var result ResponseLogin
 		err = collection.FindOne(context.TODO(), requestJSON).Decode(&result)
-		fmt.Println(result)
+		log.Println(result)
 
 		//___________________________send success response_________________________________________
 		response := ResponseLogin{
@@ -74,7 +81,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		responseJSON, err := json.Marshal(response)
 		if err != nil {
-			logger.WithError(err).Error("Error encoding JSON response")
+			log.Println("Error encoding JSON response")
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}

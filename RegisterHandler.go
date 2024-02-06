@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -28,10 +29,16 @@ type ResponseRegister struct {
 }
 
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {
+	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatal("Failed to open log file:", err)
+	}
+	defer file.Close()
+	log.SetOutput(file)
 	if r.Method == http.MethodPost {
 		body, err := ioutil.ReadAll(r.Body)
 		if err != nil {
-			logger.WithError(err).Error("Error reading request body")
+			log.Println("Error reading request body")
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
@@ -94,7 +101,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 
 		responseJSON, err := json.Marshal(response)
 		if err != nil {
-			logger.WithError(err).Error("Error encoding JSON response")
+			log.Println("Error encoding JSON response")
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}

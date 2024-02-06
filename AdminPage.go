@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -35,6 +36,13 @@ type ResponseAdmin struct {
 }
 
 func AdminHandler(w http.ResponseWriter, r *http.Request) {
+	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatal("Failed to open log file:", err)
+	}
+	defer file.Close()
+	log.SetOutput(file)
+
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		logger.WithError(err).Error("Error reading request body")
