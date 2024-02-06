@@ -26,7 +26,7 @@ type ResponseStatus struct {
 
 var newUserChannel = make(chan struct{}, 1)
 
-var limiter = rate.NewLimiter(rate.Limit(10), 5)
+var limiter = rate.NewLimiter(rate.Limit(1), 5000)
 
 var logger = logrus.New()
 
