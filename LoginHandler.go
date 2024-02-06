@@ -27,7 +27,7 @@ type ResponseLogin struct {
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatal("Failed to open log file:", err)
+		log.Println("Failed to open log file:", err)
 	}
 	defer file.Close()
 	log.SetOutput(file)

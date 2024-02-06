@@ -96,14 +96,14 @@ func ProductsPage(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.ParseFiles("./front/Products.html")
 	if err != nil {
-		logger.WithError(err).Error("Error parsing template file")
+		log.Println("Error parsing template file")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, pageVariables)
 	if err != nil {
-		logger.WithError(err).Error("Error executing template")
+		log.Println("Error executing template")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -115,14 +115,14 @@ func CartPage(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.ParseFiles("./front/Cart.html")
 	if err != nil {
-		logger.WithError(err).Error("Error executing template")
+		log.Println("Error executing template")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, pageVariables)
 	if err != nil {
-		logger.WithError(err).Error("Error parsing template file")
+		log.Println("Error parsing template file")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -143,14 +143,14 @@ func AdminPage(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl, err := template.ParseFiles("./front/AdminPage.html")
 	if err != nil {
-		logger.WithError(err).Error("Error parsing template file")
+		log.Println("Error parsing template file")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, pageVariables)
 	if err != nil {
-		logger.WithError(err).Error("Error executing template")
+		log.Println("Error executing template")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -162,14 +162,14 @@ func LoginPage(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.ParseFiles("./front/LoginPage.html")
 	if err != nil {
-		logger.WithError(err).Error("Error parsing template file")
+		log.Println("Error parsing template file")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, pageVariables)
 	if err != nil {
-		logger.WithError(err).Error("Error executing template")
+		log.Println("Error executing template")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -181,14 +181,14 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.ParseFiles("./front/Registration.html")
 	if err != nil {
-		logger.WithError(err).Error("Error parsing template file")
+		log.Println("Error parsing template file")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, pageVariables)
 	if err != nil {
-		logger.WithError(err).Error("Error executing template")
+		log.Println("Error executing template")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }

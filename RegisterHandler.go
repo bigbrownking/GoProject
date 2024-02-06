@@ -31,7 +31,7 @@ type ResponseRegister struct {
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatal("Failed to open log file:", err)
+		log.Println("Failed to open log file:", err)
 	}
 	defer file.Close()
 	log.SetOutput(file)
@@ -54,7 +54,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		fmt.Printf("Received POST request with message: %s\n", requestJSON)
+		log.Printf("Received POST request with message: %s\n", requestJSON)
 
 		//_________________________connect to MongoDb_____________________________________
 		serverAPI := options.ServerAPI(options.ServerAPIVersion1)
@@ -71,7 +71,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
 			panic(err)
 		}
-		fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+		log.Println("Pinged your deployment. You successfully connected to MongoDB!")
 		collection := client.Database("mydb").Collection("users")
 
 		//________________________Find and insert_____________________________

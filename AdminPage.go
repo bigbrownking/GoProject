@@ -211,7 +211,7 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 
 			cursor, err := collection.Find(context.TODO(), bson.D{}, options.Find().SetSort(sortOptions))
 			if err != nil {
-				log.Fatal(err)
+				log.Println(err)
 			}
 			var results []*ResponseAdmin
 			for cursor.Next(context.TODO()) {
@@ -219,18 +219,18 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 				var elem ResponseAdmin
 				err := cursor.Decode(&elem)
 				if err != nil {
-					log.Fatal(err)
+					log.Println(err)
 				}
 
 				results = append(results, &elem)
 			}
 			if err := cursor.Err(); err != nil {
-				log.Fatal(err)
+				log.Println(err)
 			}
 			cursor.Close(context.TODO())
 			responseJSON, err := json.Marshal(results)
 			if err != nil {
-				logger.WithError(err).Error("Error encoding JSON response")
+				log.Println("Error encoding JSON response")
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
@@ -259,7 +259,7 @@ func AdminAll(w http.ResponseWriter, r *http.Request) {
 	if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
 		panic(err)
 	}
-	fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+	log.Println("Pinged your deployment. You successfully connected to MongoDB!")
 	collection := client.Database("mydb").Collection("users")
 
 	//_______________________________admin actions______________________________________
@@ -268,7 +268,7 @@ func AdminAll(w http.ResponseWriter, r *http.Request) {
 
 	cur, err := collection.Find(context.TODO(), filter)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	for cur.Next(context.TODO()) {
@@ -276,18 +276,18 @@ func AdminAll(w http.ResponseWriter, r *http.Request) {
 		var elem ResponseAdmin
 		err := cur.Decode(&elem)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 
 		results = append(results, &elem)
 	}
 	if err := cur.Err(); err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 	cur.Close(context.TODO())
 	responseJSON, err := json.Marshal(results)
 	if err != nil {
-		logger.WithError(err).Error("Error encoding JSON response")
+		log.Println("Error encoding JSON response")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
