@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -40,7 +39,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			Login:    queryParams.Get("login"),
 			Password: queryParams.Get("password"),
 		}
-		fmt.Fprintf(os.Stdout, "Received POST request with message: %s\n", requestJSON)
+		log.Println(os.Stdout, "Received POST request with message: %s\n", requestJSON)
 		if requestJSON.Login == "" {
 			responseError := ResponseStatus{
 				Status:  http.StatusBadRequest,

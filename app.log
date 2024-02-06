@@ -15,3 +15,8 @@
 2024/02/06 16:39:59 Rate limit exceeded
 2024/02/06 16:40:01 Shutting down server...
 2024/02/06 16:40:03 Server stopped
+2024/02/06 16:42:01 Server listening on port: 8080
+2024/02/06 16:42:18 &{0xc00007a500} Received POST request with message: %s
+ {1 1}
+2024/02/06 16:42:24 Pinged your deployment. You successfully connected to MongoDB!
+2024/02/06 16:42:24 {0 1 ObjectID("65ba5f1061b0bef37eebc3f3")}
