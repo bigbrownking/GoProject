@@ -1,4 +1,8 @@
 var logins = []
+let allUsers = []
+var currnetLogs = []
+let maxItems = 0
+let activePage = 1
 document.querySelector('.sign_up').addEventListener('submit', async function(e) {
     e.preventDefault();
     var domain = window.location.origin;
@@ -49,17 +53,24 @@ async function getData() {
             console.log(response.data);
         })
             .catch(error => {
-                console.error('Ошибка:', error);
+                console.error('Ошибка:', error);    
             });
+        maxItems = data.length
+        allUsers = data
+        currnetLogs = data
         showUsers(data)
+        changePage(1)
     }
     catch (error) {
         console.error("Произошла ошибка при отправке запроса", error);
     }
 }
 
-function showUsers(data) {
-    if (data) {
+function showUsers(dataOld) {
+    if (dataOld) {
+        logins = []
+        allUsers = dataOld
+        let data = currnetLogs
         let table = document.querySelector(".tableUsers")
         while (table.firstChild) {
             table.removeChild(table.firstChild);
@@ -111,7 +122,37 @@ function showUsers(data) {
             tbdy.appendChild(tr);
         }
         table.appendChild(tbdy);
+        let pages = document.querySelector(".page")
+        while (pages.firstChild) {
+            pages.removeChild(pages.firstChild);
+        }
+        let maxPage =Math.ceil( maxItems/5)
+        for(let i = 1; i <= maxPage; i++){
+            let page = document.createElement("button")
+            page.innerText = i
+            page.id = i + "page"
+            page.addEventListener("click", () => {
+                changePage(i)
+            })
+            pages.appendChild(page)
+        }
     }
+}
+
+async function changePage(item){
+    let maxPage =Math.ceil( maxItems/5)
+    for(let i = 1; i <= maxPage; i++){
+        let page = document.getElementById(`${i}page`)
+        page.style.backgroundColor  = "black"
+        if(item === i){
+            page.style.backgroundColor  = "red"
+        }
+    }
+    console.log(allUsers);
+    currnetLogs = allUsers.slice(5*(item-1), 5*item)
+    console.log(allUsers);
+    console.log(currnetLogs);
+    showUsers(allUsers)
 
 }
 async function findUserByLogin(login){
@@ -131,6 +172,7 @@ async function findUserByLogin(login){
             select.removeChild(select.firstChild);
         }
         showUsers(data)
+        changePage(1)
     }
     catch (error) {
         console.error("Произошла ошибка при отправке запроса", error);
@@ -168,6 +210,7 @@ async function changeSort(){
                 "Id": sortOrder,
             });
             showUsers(response.data);
+            changePage(1)
         } catch (error) {
             console.error("Произошла ошибка при отправке запроса", error);
         }
@@ -188,6 +231,7 @@ async function findUser() {
                 console.error('Ошибка:', error);
             });
         showUsers([data])
+        changePage(1)
     }
     catch (error) {
         console.error("Произошла ошибка при отправке запроса", error);
