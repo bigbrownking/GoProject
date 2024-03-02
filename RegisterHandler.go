@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -28,10 +29,16 @@ type ResponseRegister struct {
 }
 
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {
+	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Println("Failed to open log file:", err)
+	}
+	defer file.Close()
+	log.SetOutput(file)
 	if r.Method == http.MethodPost {
 		body, err := ioutil.ReadAll(r.Body)
 		if err != nil {
-			logger.WithError(err).Error("Error reading request body")
+			log.Println("Error reading request body")
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
@@ -47,7 +54,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		fmt.Printf("Received POST request with message: %s\n", requestJSON)
+		log.Printf("Received POST request with message: %s\n", requestJSON)
 
 		//_________________________connect to MongoDb_____________________________________
 		serverAPI := options.ServerAPI(options.ServerAPIVersion1)
@@ -64,7 +71,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
 			panic(err)
 		}
-		fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+		log.Println("Pinged your deployment. You successfully connected to MongoDB!")
 		collection := client.Database("mydb").Collection("users")
 
 		//________________________Find and insert_____________________________
@@ -94,7 +101,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 
 		responseJSON, err := json.Marshal(response)
 		if err != nil {
-			logger.WithError(err).Error("Error encoding JSON response")
+			log.Println("Error encoding JSON response")
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}

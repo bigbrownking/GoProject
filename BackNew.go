@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"html/template"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -26,12 +27,18 @@ type ResponseStatus struct {
 
 var newUserChannel = make(chan struct{}, 1)
 
-var limiter = rate.NewLimiter(rate.Limit(10), 5)
+var limiter = rate.NewLimiter(2, 1)
 
 var logger = logrus.New()
 
 func main() {
 	logger.SetFormatter(&logrus.JSONFormatter{})
+	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatal("Failed to open log file:", err)
+	}
+	defer file.Close()
+	log.SetOutput(file)
 	http.HandleFunc("/", rateLimit(HomePage))
 	http.HandleFunc("/Script.js", rateLimit(jsFile))
 	http.HandleFunc("/loginPage", rateLimit(LoginPage))
@@ -49,32 +56,32 @@ func main() {
 		Addr:    ":8080",
 		Handler: nil,
 	}
-
+	log.Println("Server listening on port: 8080")
 	go func() {
-		logger.Info("Server listening on :8080")
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			logger.WithError(err).Error("Error starting server")
+			log.Println("Error starting server")
 		}
 	}()
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
-	logger.Info("Shutting down server...")
+	log.Println("Shutting down server...")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	if err := server.Shutdown(ctx); err != nil {
-		logger.WithError(err).Error("Error shutting down server")
+		log.Println("Error shutting down server")
 	}
 
-	logger.Info("Server stopped")
+	log.Println("Server stopped")
 }
 
 func rateLimit(h http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if !limiter.Allow() {
+			log.Println("Rate limit exceeded")
 			http.Error(w, "Rate limit exceeded", http.StatusTooManyRequests)
 			return
 		}
@@ -89,14 +96,14 @@ func ProductsPage(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.ParseFiles("./front/Products.html")
 	if err != nil {
-		logger.WithError(err).Error("Error parsing template file")
+		log.Println("Error parsing template file")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, pageVariables)
 	if err != nil {
-		logger.WithError(err).Error("Error executing template")
+		log.Println("Error executing template")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -108,14 +115,14 @@ func CartPage(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.ParseFiles("./front/Cart.html")
 	if err != nil {
-		logger.WithError(err).Error("Error executing template")
+		log.Println("Error executing template")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, pageVariables)
 	if err != nil {
-		logger.WithError(err).Error("Error parsing template file")
+		log.Println("Error parsing template file")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -136,14 +143,14 @@ func AdminPage(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl, err := template.ParseFiles("./front/AdminPage.html")
 	if err != nil {
-		logger.WithError(err).Error("Error parsing template file")
+		log.Println("Error parsing template file")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, pageVariables)
 	if err != nil {
-		logger.WithError(err).Error("Error executing template")
+		log.Println("Error executing template")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -155,14 +162,14 @@ func LoginPage(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.ParseFiles("./front/LoginPage.html")
 	if err != nil {
-		logger.WithError(err).Error("Error parsing template file")
+		log.Println("Error parsing template file")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, pageVariables)
 	if err != nil {
-		logger.WithError(err).Error("Error executing template")
+		log.Println("Error executing template")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -174,14 +181,14 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.ParseFiles("./front/Registration.html")
 	if err != nil {
-		logger.WithError(err).Error("Error parsing template file")
+		log.Println("Error parsing template file")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, pageVariables)
 	if err != nil {
-		logger.WithError(err).Error("Error executing template")
+		log.Println("Error executing template")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
