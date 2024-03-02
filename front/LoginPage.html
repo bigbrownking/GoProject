@@ -28,6 +28,9 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/Script.js"></script>
 <script>
+axios.post("/auth", {email: "musabecova05@gmail.com", verificationCode: "123456789"}).catch(err =>{
+    console.log(err);
+})
     document.getElementById('log_in').addEventListener('submit', async function(e) {
         var login
     e.preventDefault()

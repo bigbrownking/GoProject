@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -13,6 +14,9 @@ import (
 	"time"
 
 	"github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"golang.org/x/time/rate"
 )
 
@@ -25,9 +29,15 @@ type ResponseStatus struct {
 	Message string `json:"message"`
 }
 
+type ResponsePosts struct {
+	Status int         `json:"status"`
+	Posts  string      `json:"login"`
+	Id     interface{} `json:"id"`
+}
+
 var newUserChannel = make(chan struct{}, 1)
 
-var limiter = rate.NewLimiter(2, 1)
+var limiter = rate.NewLimiter(50, 1)
 
 var logger = logrus.New()
 
@@ -43,6 +53,7 @@ func main() {
 	http.HandleFunc("/Script.js", rateLimit(jsFile))
 	http.HandleFunc("/loginPage", rateLimit(LoginPage))
 	http.HandleFunc("/AdminPage", rateLimit(AdminPage))
+	http.HandleFunc("/main", rateLimit(Main))
 	http.HandleFunc("/ProductsPage", rateLimit(ProductsPage))
 	http.HandleFunc("/CartPage", rateLimit(CartPage))
 	http.HandleFunc("/login", rateLimit(LoginHandler))
@@ -51,6 +62,8 @@ func main() {
 	http.HandleFunc("/register", rateLimit(RegisterHandler))
 	http.HandleFunc("/admin", rateLimit(AdminHandler))
 	http.HandleFunc("/admin/all", rateLimit(AdminAll))
+	http.HandleFunc("/auth", rateLimit(SendVerificationCodeEmail))
+	http.HandleFunc("/getPosts", rateLimit(getAllPosts))
 
 	server := &http.Server{
 		Addr:    ":8080",
@@ -155,6 +168,24 @@ func AdminPage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func Main(w http.ResponseWriter, r *http.Request) {
+	pageVariables := PageVariables{
+		Title: "Main",
+	}
+	tmpl, err := template.ParseFiles("./front/Main.html")
+	if err != nil {
+		log.Println("Error parsing template file")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, pageVariables)
+	if err != nil {
+		log.Println("Error executing template")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func LoginPage(w http.ResponseWriter, r *http.Request) {
 	pageVariables := PageVariables{
 		Title: "Login Page",
@@ -202,5 +233,67 @@ func sendJSONResponse(w http.ResponseWriter, response ResponseStatus) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(response.Status)
+	w.Write(responseJSON)
+}
+
+func getAllPosts(w http.ResponseWriter, r *http.Request) {
+	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatal("Failed to open log file:", err)
+	}
+	defer file.Close()
+	log.SetOutput(file)
+	//_________________________connect to MongoDb_____________________________________
+	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+	opts := options.Client().ApplyURI("mongodb+srv://Esimgali:LOLRKCjhuCSfTdeY@cluste.vdsc74d.mongodb.net/?retryWrites=true&w=majority").SetServerAPIOptions(serverAPI)
+	client, err := mongo.Connect(context.TODO(), opts)
+	if err != nil {
+		panic(err)
+	}
+	defer func() {
+		if err = client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+	if err := client.Database("posts").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
+		panic(err)
+	}
+	fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+	collection := client.Database("mydb").Collection("users")
+
+	//_______________________________posts get actions______________________________________
+	var results []*ResponsePosts
+	filter := bson.M{}
+
+	cur, err := collection.Find(context.TODO(), filter)
+	if err != nil {
+		log.Println(err)
+	}
+
+	for cur.Next(context.TODO()) {
+
+		var elem ResponsePosts
+		err := cur.Decode(&elem)
+		if err != nil {
+			log.Println(err)
+		}
+
+		results = append(results, &elem)
+	}
+	if err := cur.Err(); err != nil {
+		log.Println(err)
+	}
+	cur.Close(context.TODO())
+	responseJSON, err := json.Marshal(results)
+	if err != nil {
+		log.Println("Error encoding JSON response")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	//___________________________send success response_________________________________________
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
 	w.Write(responseJSON)
 }

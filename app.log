@@ -20,3 +20,155 @@
  {1 1}
 2024/02/06 16:42:24 Pinged your deployment. You successfully connected to MongoDB!
 2024/02/06 16:42:24 {0 1 ObjectID("65ba5f1061b0bef37eebc3f3")}
+2024/03/02 18:53:34 Server listening on port: 8080
+2024/03/02 18:53:48 Rate limit exceeded
+2024/03/02 18:53:48 Rate limit exceeded
+2024/03/02 18:54:04 Rate limit exceeded
+2024/03/02 18:54:04 Rate limit exceeded
+2024/03/02 18:54:13 &{0xc000072500} Received POST request with message: %s
+ {esim 123}
+2024/03/02 18:54:16 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/02 18:54:16 {0  ObjectID("000000000000000000000000")}
+2024/03/02 18:56:10 &{0xc000072500} Received POST request with message: %s
+ {Esimgali 123456789}
+2024/03/02 18:56:13 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/02 18:56:13 {0  ObjectID("000000000000000000000000")}
+2024/03/02 18:58:10 &{0xc000072500} Received POST request with message: %s
+ {Esimgali 121456789}
+2024/03/02 18:58:13 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/02 18:58:13 {0 Esimgali ObjectID("659b0dccd48aaf4139ab2c9c")}
+2024/03/02 19:00:40 &{0xc000072500} Received POST request with message: %s
+ {Esimgali 123456789}
+2024/03/02 19:00:43 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/02 19:00:43 {0  ObjectID("000000000000000000000000")}
+2024/03/02 19:01:16 &{0xc000072500} Received POST request with message: %s
+ {Esimgali 123456789}
+2024/03/02 19:01:17 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/02 19:01:17 {0 Esimgali ObjectID("659b0dccd48aaf4139ab2c9c")}
+2024/03/02 19:02:35 Server listening on port: 8080
+2024/03/02 22:07:14 Shutting down server...
+2024/03/02 22:07:14 Server stopped
+2024/03/02 22:07:16 Server listening on port: 8080
+2024/03/02 22:07:47 Received POST request with message: {esimkhamitov2005@gmail.com 123456789}
+2024/03/02 22:11:16 Server listening on port: 8080
+2024/03/02 22:11:27 Received POST request with message: {esimkhamitov2005@gmail.com 123456789}
+2024/03/02 22:46:21 Received POST request with message: {esimkhamitov2005@gmail.com 123456789}
+2024/03/02 22:50:26 Server listening on port: 8080
+2024/03/02 22:50:34 Received POST request with message: {esimkhamitov2005@gmail.com 123456789}
+2024/03/02 22:54:28 Received POST request with message: {esimgalikhamitov2005@gmail.com 123456789}
+2024/03/02 23:24:50 Server listening on port: 8080
+2024/03/02 23:25:04 Received POST request with message: {esimgalikhamitov2005@gmail.com 123456789}
+2024/03/02 23:25:40 Received POST request with message: {esimgalikhamitov2005@gmail.com 123456789}
+2024/03/02 23:27:36 &{0xc000072500} Received POST request with message: %s
+ {esim 12345678}
+2024/03/02 23:27:39 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/02 23:27:39 {0  ObjectID("000000000000000000000000")}
+2024/03/02 23:27:39 &{0xc000072500} Received POST request with message: %s
+ {esim 12345678}
+2024/03/02 23:27:39 Rate limit exceeded
+2024/03/02 23:27:40 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/02 23:27:40 {0  ObjectID("000000000000000000000000")}
+2024/03/02 23:27:42 Received POST request with message: {esimgalikhamitov2005@gmail.com 123456789}
+2024/03/02 23:28:02 &{0xc000072500} Received POST request with message: %s
+ {esim qwerty}
+2024/03/02 23:28:03 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/02 23:28:03 {0  ObjectID("000000000000000000000000")}
+2024/03/02 23:28:05 Received POST request with message: {esimgalikhamitov2005@gmail.com 123456789}
+2024/03/02 23:28:19 &{0xc000072500} Received POST request with message: %s
+ {Esim qwerty}
+2024/03/02 23:28:20 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/02 23:28:20 {0 Esim ObjectID("65a3cee25a67245a440ba4cb")}
+2024/03/02 23:31:14 Received POST request with message: {esimgalikhamitov2005@gmail.com 123456789}
+2024/03/02 23:31:17 Received POST request with message: {esimgalikhamitov2005@gmail.com 123456789}
+2024/03/02 23:31:34 Received POST request with message: {esimkhamitov2005@gmail.com 123456789}
+2024/03/02 23:39:32 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:40:26 Server listening on port: 8080
+2024/03/02 23:40:33 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:40:33 Rate limit exceeded
+2024/03/02 23:40:34 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:40:34 <nil>
+2024/03/02 23:40:34 Rate limit exceeded
+2024/03/02 23:40:35 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:40:35 <nil>
+2024/03/02 23:40:36 <nil>
+2024/03/02 23:40:50 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:40:52 <nil>
+2024/03/02 23:41:30 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:41:32 <nil>
+2024/03/02 23:41:37 Server listening on port: 8080
+2024/03/02 23:41:44 Rate limit exceeded
+2024/03/02 23:41:44 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:41:46 <nil>
+2024/03/02 23:41:46 Error encoding JSON response
+2024/03/02 23:41:46 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:41:47 <nil>
+2024/03/02 23:41:47 Error encoding JSON response
+2024/03/02 23:41:47 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:41:48 <nil>
+2024/03/02 23:41:48 Error encoding JSON response
+2024/03/02 23:43:19 Server listening on port: 8080
+2024/03/02 23:43:25 Rate limit exceeded
+2024/03/02 23:43:25 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:43:27 Error encoding JSON response
+2024/03/02 23:43:27 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:43:28 Error encoding JSON response
+2024/03/02 23:43:28 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:43:30 Error encoding JSON response
+2024/03/02 23:44:20 Server listening on port: 8080
+2024/03/02 23:44:26 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:44:28 <nil>
+2024/03/02 23:44:28 Error encoding JSON response
+2024/03/02 23:44:28 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:44:29 <nil>
+2024/03/02 23:44:29 Error encoding JSON response
+2024/03/02 23:44:29 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:44:30 <nil>
+2024/03/02 23:44:30 Error encoding JSON response
+2024/03/02 23:46:52 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:46:53 <nil>
+2024/03/02 23:46:53 Error encoding JSON response
+2024/03/02 23:46:53 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:46:55 <nil>
+2024/03/02 23:46:55 Error encoding JSON response
+2024/03/02 23:46:55 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:46:56 <nil>
+2024/03/02 23:46:56 Error encoding JSON response
+2024/03/02 23:47:24 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:47:25 <nil>
+2024/03/02 23:47:25 Error encoding JSON response
+2024/03/02 23:47:25 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:47:27 <nil>
+2024/03/02 23:47:27 Error encoding JSON response
+2024/03/02 23:47:27 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:47:28 <nil>
+2024/03/02 23:47:28 Error encoding JSON response
+2024/03/02 23:49:54 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:49:56 <nil>
+2024/03/02 23:49:56 Error encoding JSON response
+2024/03/02 23:49:56 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:49:57 <nil>
+2024/03/02 23:49:57 Error encoding JSON response
+2024/03/02 23:49:57 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:49:59 <nil>
+2024/03/02 23:49:59 Error encoding JSON response
+2024/03/02 23:51:11 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:51:13 <nil>
+2024/03/02 23:51:13 Error encoding JSON response
+2024/03/02 23:51:13 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:51:14 <nil>
+2024/03/02 23:51:14 Error encoding JSON response
+2024/03/02 23:51:14 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:51:16 <nil>
+2024/03/02 23:51:16 Error encoding JSON response
+2024/03/02 23:52:40 Server listening on port: 8080
+2024/03/02 23:52:47 Rate limit exceeded
+2024/03/02 23:52:47 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:52:49 <nil>
+2024/03/02 23:54:07 Server listening on port: 8080
+2024/03/02 23:54:14 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/02 23:54:15 <nil>
+2024/03/03 02:50:54 &{0xc000072500} Received POST request with message: %s
+ {Esimgali 123456789}
+2024/03/03 02:50:57 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 02:50:57 {0 Esimgali ObjectID("659b0dccd48aaf4139ab2c9c")}
+2024/03/03 02:55:47 Server listening on port: 8080

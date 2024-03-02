@@ -3,51 +3,87 @@ let allUsers = []
 var currnetLogs = []
 let maxItems = 0
 let activePage = 1
-document.querySelector('.sign_up').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    var domain = window.location.origin;
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    var confirm_password = document.getElementById("confirm_password").value;
-    var email = document.getElementById("email").value;
-    var phone = document.getElementById("phone").value;
-    var address = document.getElementById("address").value;
-    if (password != confirm_password){
-        alert('Passwords do not match');
+var domain = window.location.href;
+if(domain.includes("main")){
+    let posts = document.querySelector("#posts")
+    if(posts){
+        let data = null
+        await axios.get("/getPosts",).then(res=>{
+            data = res.data
+        })
+        while (posts.firstChild) {
+            posts.removeChild(posts.firstChild);
+        }
+        data.forEach(element => {
+            let card = document.createElement("div")
+            card.className = "col"
+            card.id = element.posts_id
+            card.innerHTML = 
+            `<div style="" class="card">
+            <img style="" src="${element.picture_url}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title"><a href="${element.posts_url}" target="_blank">${element.title}</a></h5>
+            <p class="card-text">Score: ${element.score}</p>
+            <p class="card-text">Type: ${element.type}</p>
+            </div>
+            <div class="card-footer">
+            <small class="text-muted">${element.aired_on}</small>
+            </div>
+            </div>
+            `
+            posts.appendChild(card)
+        });
     }
-    else{
-        var data = {
-            "login": username,
-            "password": password,
-            "email": email,
-            "number": phone,
-            "address": address
-        };
-        console.log(data);
-        try{
-            await axios.post("http://localhost:8080/register", data).then(response => {
-                data = response.data
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.error('Ошибка:', error);
-            });
-            showUsers(data)
+}
+const reg = document.querySelector('.sign_up')
+if(reg){
+    reg.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var domain = window.location.origin;
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var confirm_password = document.getElementById("confirm_password").value;
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("phone").value;
+        var address = document.getElementById("address").value;
+        if (password != confirm_password){
+            alert('Passwords do not match');
         }
-        catch(error){
-            console.error("Произошла ошибка при отправке запроса", error);
+        else{
+            var data = {
+                "login": username,
+                "password": password,
+                "email": email,
+                "number": phone,
+                "address": address
+            };
+            console.log(data);
+            try{
+                await axios.post("/register", data).then(response => {
+                    data = response.data
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.error('Ошибка:', error);
+                });
+                showUsers(data)
+            }
+            catch(error){
+                console.error("Произошла ошибка при отправке запроса", error);
+            }
+            console.log(domain + "/AdminPage");
+            window.location.assign(domain + "/AdminPage");
+            return false
         }
-        console.log(domain + "/AdminPage");
-        window.location.assign(domain + "/AdminPage");
         return false
-    }
-    return false
-})
+    })
+}
+
 
 async function getData() {
     let data
     try {
-        await axios.get("http://localhost:8080/admin/all").then(response => {
+        await axios.get("/admin/all").then(response => {
 
             data = response.data
             console.log(response.data);
@@ -158,7 +194,7 @@ async function changePage(item){
 async function findUserByLogin(login){
     let data
     try {
-        await axios.post("http://localhost:8080/admin", { "action": "filterLogin", "login": login}).then(response => {
+        await axios.post("/admin", { "action": "filterLogin", "login": login}).then(response => {
             data = response.data
             console.log(response.data);
         })
@@ -204,7 +240,7 @@ async function changeSort(){
     console.log(sortOrder);
     if(sortOrder !== ""){
         try {
-            const response = await axios.post("http://localhost:8080/admin", {
+            const response = await axios.post("/admin", {
                 "action": "sort",
                 "Login": "login",
                 "Id": sortOrder,
@@ -223,7 +259,7 @@ async function findUser() {
     let data
     try {
         console.log(id.value);
-        await axios.post("http://localhost:8080/admin", { "action": "filter", "id": id.value }).then(response => {
+        await axios.post("/admin", { "action": "filter", "id": id.value }).then(response => {
             data = response.data
             console.log(response.data);
         })
@@ -241,7 +277,7 @@ async function findUser() {
 async function deleteUser(id) {
     try {
         console.log(id);
-        await axios.post("http://localhost:8080/admin", { "action": "delete", "id": id }).then(response => {
+        await axios.post("/admin", { "action": "delete", "id": id }).then(response => {
             data = response.data
             console.log(response.data);
         })
@@ -261,7 +297,7 @@ async function deleteUser(id) {
 async function updateUser(id) {
     let data;
     try {
-        await axios.post("http://localhost:8080/admin", {"action": "filter", "id": id}).then(response => {
+        await axios.post("/admin", {"action": "filter", "id": id}).then(response => {
             data = response.data
             console.log(response.data);
         })
@@ -291,7 +327,7 @@ async function updateUser(id) {
             updatedAddress = data["address"]
         }
         console.log({ "action": "update", "id": id, "login": updatedUsername, "password": updatedPassword, "email": updatedEmail, "number": updatedPhone, "address": updatedAddress});
-        await axios.post("http://localhost:8080/admin", { "action": "update", "id": id, "login": updatedUsername, "password": updatedPassword, "email": updatedEmail, "number": updatedPhone, "address": updatedAddress})
+        await axios.post("/admin", { "action": "update", "id": id, "login": updatedUsername, "password": updatedPassword, "email": updatedEmail, "number": updatedPhone, "address": updatedAddress})
             .then(response => {
                 data = response.data;
                 console.log(response.data);
