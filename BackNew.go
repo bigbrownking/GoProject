@@ -71,6 +71,7 @@ func main() {
 	http.HandleFunc("/getPosts", rateLimit(getAllPosts))
 	http.HandleFunc("/isLogin", rateLimit(isLogin))
 	http.HandleFunc("/profile", rateLimit(Profile))
+	http.HandleFunc("/logOut", rateLimit(LogOut))
 
 	server := &http.Server{
 		Addr:    ":8080",
@@ -321,5 +322,39 @@ func getAllPosts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
 
+	w.Write(responseJSON)
+}
+
+func LogOut(w http.ResponseWriter, r *http.Request) {
+	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatal("Failed to open log file:", err)
+	}
+	defer file.Close()
+	log.SetOutput(file)
+	//______________________________find login and password______________________
+	CurrentUser = ResponseLogin{}
+	var response ResponseLogin
+	if CurrentUser.Login == "" {
+		response = ResponseLogin{
+			Status: 200,
+			Cards:  nil,
+		}
+	} else {
+		response = ResponseLogin{
+			Status: 500,
+			Cards:  nil,
+		}
+	}
+
+	responseJSON, err := json.Marshal(response)
+	if err != nil {
+		log.Println("Error encoding JSON response")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(response.Status)
 	w.Write(responseJSON)
 }

@@ -432,3 +432,9 @@ function redirect(page){
     let domain = window.location.origin;
     window.location.assign(domain + '/' + page);
 }
+
+async function logout(){
+    await axios.get("/logOut").then(()=>{   
+        window.location.assign(window.location.origin + '/loginPage');
+    })
+}

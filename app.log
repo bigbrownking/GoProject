@@ -234,3 +234,14 @@
  {Esimgali 123456789}
 2024/03/03 12:27:31 Pinged your deployment. You successfully connected to MongoDB!
 2024/03/03 12:27:31 {0 [{https://i.pinimg.com/originals/5c/a0/80/5ca080dab8ad5c4f66bdb6271dc0c74b.jpg  100$ aming Mouse ObjectID("000000000000000000000000")}] Esimgali ObjectID("659b0dccd48aaf4139ab2c9c") esim@mail.ru ldmokfsdmvk astana}
+2024/03/03 12:57:54 Server listening on port: 8080
+2024/03/03 12:58:00 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/03 12:58:02 <nil>
+2024/03/03 12:58:07 &{0xc0000a0500} Received POST request with message: %s
+ {Esimgali 123456789}
+2024/03/03 12:58:10 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 12:58:10 {0 [{https://i.pinimg.com/originals/5c/a0/80/5ca080dab8ad5c4f66bdb6271dc0c74b.jpg  100$ Gaming Mouse ObjectID("000000000000000000000000")}] Esimgali ObjectID("659b0dccd48aaf4139ab2c9c") esim@mail.ru ldmokfsdmvk astana}
+2024/03/03 12:58:14 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/03 12:58:17 <nil>
+2024/03/03 12:58:24 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/03 12:58:25 <nil>
