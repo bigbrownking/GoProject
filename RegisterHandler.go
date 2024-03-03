@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -78,10 +77,10 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		//________________________Find and insert_____________________________
 		var result ResponseRegister
 		err = collection.FindOne(context.TODO(), bson.M{"login": requestJSON.Login}).Decode(&result)
-		fmt.Println(result)
+		log.Println(result)
 		var response ResponseRegister
 		if result.Login != "" {
-			fmt.Println("Login exist")
+			log.Println("Login exist")
 			response = ResponseRegister{
 				Status: 505,
 				Login:  requestJSON.Login,
