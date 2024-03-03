@@ -177,9 +177,9 @@ func AdminPage(w http.ResponseWriter, r *http.Request) {
 
 func Main(w http.ResponseWriter, r *http.Request) {
 	pageVariables := PageVariables{
-		Title: "Main",
+		Title: "main",
 	}
-	tmpl, err := template.ParseFiles("./front/Main.html")
+	tmpl, err := template.ParseFiles("./front/main.html")
 	if err != nil {
 		log.Println("Error parsing template file")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
