@@ -26,6 +26,7 @@ type ResponseLogin struct {
 	Email       string             `json:"email"`
 	PhoneNumber string             `json:"number"`
 	Address     string             `json:"address"`
+	IsAdmin     bool               `json:"isAdmin"`
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
@@ -78,10 +79,14 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 		//___________________________send success response_________________________________________
 		response := ResponseLogin{
-			Status: http.StatusOK,
-			Cards:  result.Cards,
-			Login:  result.Login,
-			Id:     result.Id,
+			Status:      http.StatusOK,
+			Cards:       result.Cards,
+			Login:       result.Login,
+			Id:          result.Id,
+			Email:       result.Email,
+			PhoneNumber: result.PhoneNumber,
+			Address:     result.Address,
+			IsAdmin:     result.IsAdmin,
 		}
 
 		CurrentUser = ResponseLogin{
@@ -92,6 +97,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			Email:       result.Email,
 			PhoneNumber: result.PhoneNumber,
 			Address:     result.Address,
+			IsAdmin:     result.IsAdmin,
 		}
 		responseJSON, err := json.Marshal(response)
 		if err != nil {
@@ -129,6 +135,7 @@ func isLogin(w http.ResponseWriter, r *http.Request) {
 			Email:       CurrentUser.Email,
 			PhoneNumber: CurrentUser.PhoneNumber,
 			Address:     CurrentUser.Address,
+			IsAdmin:     CurrentUser.IsAdmin,
 		}
 	}
 

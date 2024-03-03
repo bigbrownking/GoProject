@@ -20,6 +20,7 @@ type RegisterRequest struct {
 	Email       string `json:"email"`
 	PhoneNumber string `json:"number"`
 	Address     string `json:"address"`
+	IsAdmin     bool   `json:"isAdmin"`
 }
 
 type ResponseRegister struct {

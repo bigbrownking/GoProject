@@ -14,6 +14,14 @@ async function isLogin(){
         if(res.data.login !== ""){
             currentUser = res.data
             fullpage.style.display = "inline"
+                let adminPage =document.querySelector("#adminPage")
+                if(currentUser.isAdmin){
+                    adminPage.style.display = "inline"
+
+                }else{
+                    adminPage.style.display = "none"
+
+                }
             if(domain.includes("profile")){
     
                 let table = document.querySelector(".profileInformation")
@@ -36,7 +44,6 @@ async function isLogin(){
                         <td>${currentUser.number}</td>
                     </tr>`
                 }
-                
             }
             return true
         }
@@ -106,7 +113,8 @@ if(reg){
                 "password": password,
                 "email": email,
                 "number": phone,
-                "address": address
+                "address": address,
+                "isAdmin": false
             };
             console.log(data);
             try{

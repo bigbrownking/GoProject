@@ -32,7 +32,7 @@
 <script>
     var code = null
     let inputCode = document.querySelector("#verificationCode")
-
+    let email = null
     document.getElementById('log_in').addEventListener('submit', async function(e) {
         var login
     e.preventDefault()
@@ -48,6 +48,7 @@
         if (response.data.status == 200) {
             console.log(response);
             login = response.data.login
+            email = response.data.email
         } else {
             console.error('Неудачная попытка входа');
         }
@@ -59,7 +60,7 @@
         code =  Math.floor(Math.random() * 1000000)
         let verificationCodeButton = document.querySelector("#verificationCodeButton")
         verificationCodeButton.style.display = "inline"
-        axios.post("/auth", {email: "esimkhamitov2005@gmail.com", verificationCode: code.toString()}).catch(err =>{
+        axios.post("/auth", {email: email, verificationCode: code.toString()}).catch(err =>{
             console.log(err);
         })
         inputCode.style.display = "inline"
