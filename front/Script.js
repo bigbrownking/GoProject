@@ -68,7 +68,7 @@ if(domain.includes("main")){
                     <div class="card-body">
                     <h5 class="card-title"><p>${element.Name}</p></h5>
                     <p class="card-text">${element.Decs}</p>
-                    <button class="card-text btn btn-success" id="addToCard">Add to cart</button>
+                    <button class="card-text btn btn-success" id="addToCard${element.Id}">Add to cart</button>
 
                     </div>
                     <div class="card-footer">
@@ -76,10 +76,10 @@ if(domain.includes("main")){
                     </div>
                     </div>
                     `
-                    document.querySelector("#addToCard").addEventListener("click",async ()=>{
+                    posts.appendChild(card)
+                    document.querySelector(`#addToCard${element.Id}`).addEventListener("click",async ()=>{
                         await axios.post("/addToCard", {userId: currentUser.Id, card: element})
                     })
-                    posts.appendChild(card)
                 });
             }
         })
@@ -130,6 +130,36 @@ if(reg){
     })
 }
 
+async function getCards(){
+    let posts = document.querySelector("#posts")
+    if(posts){
+            let data = currentUser.cards
+            while (posts.firstChild) {
+                posts.removeChild(posts.firstChild);
+            }
+            if(data){
+                data.forEach(element => {
+                    let card = document.createElement("div")
+                    card.className = "col"
+                    card.id = element.Id
+                    card.innerHTML = 
+                    `<div style="" class="card">
+                    <img style="width: 150px; height: 150px" src="${element.img}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title"><p>${element.Name}</p></h5>
+                    <p class="card-text">${element.Decs}</p>
+                    </div>
+                    <div class="card-footer">
+                    <small class="text-muted">Price : ${element.Price}</small>
+                    </div>
+                    </div>
+                    `
+                    posts.appendChild(card)
+                });
+            }
+
+    }
+}
 
 async function getData() {
     let data
