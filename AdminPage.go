@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -70,7 +69,7 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 		if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
 			panic(err)
 		}
-		fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+		log.Println("Pinged your deployment. You successfully connected to MongoDB!")
 		collection := client.Database("mydb").Collection("users")
 
 		//_______________________________admin actions______________________________________
