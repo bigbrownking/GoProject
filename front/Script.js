@@ -130,8 +130,8 @@ if(reg){
             catch(error){
                 console.error("Произошла ошибка при отправке запроса", error);
             }
-            console.log(domain + "/AdminPage");
-            window.location.assign(domain + "/AdminPage");
+            console.log(domain + "/loginPage");
+            window.location.assign(domain + "/loginPage");
             return false
         }
         return false

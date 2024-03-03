@@ -322,3 +322,22 @@
 2024/03/03 13:51:57 {0 [{https://i.pinimg.com/originals/5c/a0/80/5ca080dab8ad5c4f66bdb6271dc0c74b.jpg  100$ Gaming Mouse ObjectID("000000000000000000000000")}] Esimgali ObjectID("659b0dccd48aaf4139ab2c9c") esimkhamitov2005@gmail.com ldmokfsdmvk astana true}
 2024/03/03 13:51:59 Received POST request with message: {esimkhamitov2005@gmail.com 742817}
 2024/03/03 13:52:00 <nil>
+2024/03/03 13:54:26 Server listening on port: 8080
+2024/03/03 13:55:58 Received POST request with message: {Danial 123456789 moikulm23@gmail.com +77052562054 проспект Улы Дала 58 %!s(bool=false)}
+2024/03/03 13:56:01 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 13:56:01 {0 Danial <nil>}
+2024/03/03 13:56:01 Login exist
+2024/03/03 13:56:29 &{0xc000072500} Received POST request with message: %s
+ {Danial 123456789}
+2024/03/03 13:56:30 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 13:56:30 {0 []  ObjectID("000000000000000000000000")    false}
+2024/03/03 13:58:33 Received POST request with message: {Baxa 123456789 moikulm23@gmail.com +77052562054 проспект Улы Дала 58 %!s(bool=false)}
+2024/03/03 13:58:35 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 13:58:35 {0  <nil>}
+2024/03/03 13:58:44 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 13:59:33 &{0xc000072500} Received POST request with message: %s
+ {Baxa 123456789}
+2024/03/03 13:59:35 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 13:59:35 {0 [] Baxa ObjectID("65e43bbb9fcb29f51dc2e025") moikulm23@gmail.com +77052562054 проспект Улы Дала 58 false}
+2024/03/03 13:59:35 Received POST request with message: {moikulm23@gmail.com 695441}
+2024/03/03 13:59:37 <nil>
