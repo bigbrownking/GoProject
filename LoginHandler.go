@@ -19,9 +19,13 @@ type LoginRequest struct {
 }
 
 type ResponseLogin struct {
-	Status int                `json:"status"`
-	Login  string             `json:"login"`
-	Id     primitive.ObjectID `bson:"_id"`
+	Status      int                `json:"status"`
+	Cards       []ResponsePosts    `json:"cards"`
+	Login       string             `json:"login"`
+	Id          primitive.ObjectID `bson:"_id"`
+	Email       string             `json:"email"`
+	PhoneNumber string             `json:"number"`
+	Address     string             `json:"address"`
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
@@ -75,8 +79,19 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		//___________________________send success response_________________________________________
 		response := ResponseLogin{
 			Status: http.StatusOK,
+			Cards:  result.Cards,
 			Login:  result.Login,
 			Id:     result.Id,
+		}
+
+		CurrentUser = ResponseLogin{
+			Status:      http.StatusOK,
+			Cards:       result.Cards,
+			Login:       result.Login,
+			Id:          result.Id,
+			Email:       result.Email,
+			PhoneNumber: result.PhoneNumber,
+			Address:     result.Address,
 		}
 		responseJSON, err := json.Marshal(response)
 		if err != nil {
@@ -89,4 +104,42 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(response.Status)
 		w.Write(responseJSON)
 	}
+}
+
+func isLogin(w http.ResponseWriter, r *http.Request) {
+	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatal("Failed to open log file:", err)
+	}
+	defer file.Close()
+	log.SetOutput(file)
+	//______________________________find login and password______________________
+	var response ResponseLogin
+	if CurrentUser.Login == "" {
+		response = ResponseLogin{
+			Status: 200,
+			Cards:  nil,
+		}
+	} else {
+		response = ResponseLogin{
+			Status:      CurrentUser.Status,
+			Cards:       CurrentUser.Cards,
+			Login:       CurrentUser.Login,
+			Id:          CurrentUser.Id,
+			Email:       CurrentUser.Email,
+			PhoneNumber: CurrentUser.PhoneNumber,
+			Address:     CurrentUser.Address,
+		}
+	}
+
+	responseJSON, err := json.Marshal(response)
+	if err != nil {
+		log.Println("Error encoding JSON response")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(response.Status)
+	w.Write(responseJSON)
 }

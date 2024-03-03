@@ -4,35 +4,86 @@ var currnetLogs = []
 let maxItems = 0
 let activePage = 1
 var domain = window.location.href;
+
+var currentUser = null
+
+
+async function isLogin(){
+    let fullpage =document.querySelector("#fullpage")
+    await axios.get("isLogin").then(res =>{
+        if(res.data.login !== ""){
+            currentUser = res.data
+            fullpage.style.display = "inline"
+            if(domain.includes("profile")){
+    
+                let table = document.querySelector(".profileInformation")
+                if(table){
+                    table.innerHTML = `
+                    <tr>
+                        <th scope="row">Login</th>
+                        <td>${currentUser.login}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td>${currentUser.email}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td>${currentUser.address}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone number</th>
+                        <td>${currentUser.number}</td>
+                    </tr>`
+                }
+                
+            }
+            return true
+        }
+        fullpage.style.display = "none"
+        return false
+    })
+}
+isLogin()
 if(domain.includes("main")){
     let posts = document.querySelector("#posts")
     if(posts){
-        let data = null
-        await axios.get("/getPosts",).then(res=>{
-            data = res.data
+        setTimeout(async () => {
+            let data = null
+            await axios.get("/getPosts",).then(res=>{
+                data = res.data
+            })
+            while (posts.firstChild) {
+                posts.removeChild(posts.firstChild);
+            }
+            console.log(data);
+            if(data){
+                data.forEach(element => {
+                    let card = document.createElement("div")
+                    card.className = "col"
+                    card.id = element.Id
+                    card.innerHTML = 
+                    `<div style="" class="card">
+                    <img style="width: 150px; height: 150px" src="${element.img}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title"><p>${element.Name}</p></h5>
+                    <p class="card-text">${element.Decs}</p>
+                    <button class="card-text btn btn-success" id="addToCard">Add to cart</button>
+
+                    </div>
+                    <div class="card-footer">
+                    <small class="text-muted">Price : ${element.Price}</small>
+                    </div>
+                    </div>
+                    `
+                    document.querySelector("#addToCard").addEventListener("click",async ()=>{
+                        await axios.post("/addToCard", {userId: currentUser.Id, card: element})
+                    })
+                    posts.appendChild(card)
+                });
+            }
         })
-        while (posts.firstChild) {
-            posts.removeChild(posts.firstChild);
-        }
-        data.forEach(element => {
-            let card = document.createElement("div")
-            card.className = "col"
-            card.id = element.posts_id
-            card.innerHTML = 
-            `<div style="" class="card">
-            <img style="" src="${element.picture_url}" class="card-img-top" alt="...">
-            <div class="card-body">
-            <h5 class="card-title"><a href="${element.posts_url}" target="_blank">${element.title}</a></h5>
-            <p class="card-text">Score: ${element.score}</p>
-            <p class="card-text">Type: ${element.type}</p>
-            </div>
-            <div class="card-footer">
-            <small class="text-muted">${element.aired_on}</small>
-            </div>
-            </div>
-            `
-            posts.appendChild(card)
-        });
+
     }
 }
 const reg = document.querySelector('.sign_up')
@@ -344,4 +395,10 @@ async function updateUser(id) {
 function leaveToBack() {
     var domain = window.location.origin;
     window.location.assign(domain);
+}
+
+function redirect(page){
+    console.log(123);
+    let domain = window.location.origin;
+    window.location.assign(domain + '/' + page);
 }

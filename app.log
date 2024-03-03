@@ -172,3 +172,65 @@
 2024/03/03 02:50:57 Pinged your deployment. You successfully connected to MongoDB!
 2024/03/03 02:50:57 {0 Esimgali ObjectID("659b0dccd48aaf4139ab2c9c")}
 2024/03/03 02:55:47 Server listening on port: 8080
+2024/03/03 10:39:47 Shutting down server...
+2024/03/03 10:39:47 Server stopped
+2024/03/03 10:40:35 Server listening on port: 8080
+2024/03/03 10:50:58 Server listening on port: 8080
+2024/03/03 10:52:21 Server listening on port: 8080
+2024/03/03 10:54:04 Server listening on port: 8080
+2024/03/03 10:54:20 Rate limit exceeded
+2024/03/03 10:56:16 Server listening on port: 8080
+2024/03/03 10:58:06 Server listening on port: 8080
+2024/03/03 11:10:21 Server listening on port: 8080
+2024/03/03 11:11:25 Server listening on port: 8080
+2024/03/03 11:42:22 Server listening on port: 8080
+2024/03/03 11:42:50 &{0xc000072500} Received POST request with message: %s
+ {Esimgali 123456789}
+2024/03/03 11:42:53 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 11:42:53 {0 [] Esimgali ObjectID("659b0dccd48aaf4139ab2c9c")}
+2024/03/03 11:49:18 Server listening on port: 8080
+2024/03/03 11:49:25 Rate limit exceeded
+2024/03/03 11:49:29 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/03 11:49:29 Rate limit exceeded
+2024/03/03 11:49:31 <nil>
+2024/03/03 11:49:39 &{0xc0000a0500} Received POST request with message: %s
+ {Esimgali 123456789}
+2024/03/03 11:49:41 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 11:49:41 {0 [] Esimgali ObjectID("659b0dccd48aaf4139ab2c9c")}
+2024/03/03 11:51:48 Server listening on port: 8080
+2024/03/03 11:51:59 Rate limit exceeded
+2024/03/03 11:52:10 Rate limit exceeded
+2024/03/03 11:52:10 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/03 11:52:11 <nil>
+2024/03/03 11:52:19 &{0xc000072500} Received POST request with message: %s
+ {Esimgali 123456789}
+2024/03/03 11:52:21 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 11:52:22 {0 [{https://i.pinimg.com/originals/5c/a0/80/5ca080dab8ad5c4f66bdb6271dc0c74b.jpg  100$ aming Mouse ObjectID("000000000000000000000000")}] Esimgali ObjectID("659b0dccd48aaf4139ab2c9c")}
+2024/03/03 11:58:14 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/03 11:58:16 <nil>
+2024/03/03 12:02:17 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/03 12:02:19 <nil>
+2024/03/03 12:02:27 &{0xc000072500} Received POST request with message: %s
+ {Esimgali 123456789}
+2024/03/03 12:02:30 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 12:02:30 {0 [{https://i.pinimg.com/originals/5c/a0/80/5ca080dab8ad5c4f66bdb6271dc0c74b.jpg  100$ aming Mouse ObjectID("000000000000000000000000")}] Esimgali ObjectID("659b0dccd48aaf4139ab2c9c")}
+2024/03/03 12:02:37 Server listening on port: 8080
+2024/03/03 12:02:47 Rate limit exceeded
+2024/03/03 12:02:49 Rate limit exceeded
+2024/03/03 12:02:50 Rate limit exceeded
+2024/03/03 12:02:51 Rate limit exceeded
+2024/03/03 12:02:52 Rate limit exceeded
+2024/03/03 12:02:52 Rate limit exceeded
+2024/03/03 12:03:32 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/03 12:03:33 <nil>
+2024/03/03 12:13:29 &{0xc0000a0500} Received POST request with message: %s
+ {Esimgali 123456789}
+2024/03/03 12:13:31 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 12:13:31 {0 [{https://i.pinimg.com/originals/5c/a0/80/5ca080dab8ad5c4f66bdb6271dc0c74b.jpg  100$ aming Mouse ObjectID("000000000000000000000000")}] Esimgali ObjectID("659b0dccd48aaf4139ab2c9c")}
+2024/03/03 12:25:44 Server listening on port: 8080
+2024/03/03 12:27:22 Received POST request with message: {musabecova05@gmail.com 123456789}
+2024/03/03 12:27:23 <nil>
+2024/03/03 12:27:28 &{0xc000072500} Received POST request with message: %s
+ {Esimgali 123456789}
+2024/03/03 12:27:31 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/03 12:27:31 {0 [{https://i.pinimg.com/originals/5c/a0/80/5ca080dab8ad5c4f66bdb6271dc0c74b.jpg  100$ aming Mouse ObjectID("000000000000000000000000")}] Esimgali ObjectID("659b0dccd48aaf4139ab2c9c") esim@mail.ru ldmokfsdmvk astana}

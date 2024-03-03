@@ -15,6 +15,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"golang.org/x/time/rate"
@@ -30,14 +31,18 @@ type ResponseStatus struct {
 }
 
 type ResponsePosts struct {
-	Status int         `json:"status"`
-	Posts  string      `json:"login"`
-	Id     interface{} `json:"id"`
+	Img   string             `json:"img"`
+	Decs  string             `json:"Decs"`
+	Price string             `json:"Price"`
+	Name  string             `json:"Name"`
+	Id    primitive.ObjectID `bson:"_id"`
 }
 
 var newUserChannel = make(chan struct{}, 1)
 
-var limiter = rate.NewLimiter(50, 1)
+var limiter = rate.NewLimiter(1000, 1)
+
+var CurrentUser ResponseLogin
 
 var logger = logrus.New()
 
@@ -64,6 +69,8 @@ func main() {
 	http.HandleFunc("/admin/all", rateLimit(AdminAll))
 	http.HandleFunc("/auth", rateLimit(SendVerificationCodeEmail))
 	http.HandleFunc("/getPosts", rateLimit(getAllPosts))
+	http.HandleFunc("/isLogin", rateLimit(isLogin))
+	http.HandleFunc("/profile", rateLimit(Profile))
 
 	server := &http.Server{
 		Addr:    ":8080",
@@ -224,6 +231,25 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func Profile(w http.ResponseWriter, r *http.Request) {
+	pageVariables := PageVariables{
+		Title: "Profile",
+	}
+
+	tmpl, err := template.ParseFiles("./front/profile.html")
+	if err != nil {
+		log.Println("Error parsing template file")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, pageVariables)
+	if err != nil {
+		log.Println("Error executing template")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func sendJSONResponse(w http.ResponseWriter, response ResponseStatus) {
 	responseJSON, err := json.Marshal(response)
 	if err != nil {
@@ -255,11 +281,11 @@ func getAllPosts(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 	}()
-	if err := client.Database("posts").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
+	if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
 		panic(err)
 	}
 	fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
-	collection := client.Database("mydb").Collection("users")
+	collection := client.Database("mydb").Collection("posts")
 
 	//_______________________________posts get actions______________________________________
 	var results []*ResponsePosts

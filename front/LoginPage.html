@@ -41,7 +41,7 @@ axios.post("/auth", {email: "musabecova05@gmail.com", verificationCode: "1234567
         "password": password
     };
     console.log(data);
-   await axios.get("http://localhost:8080/login", { params: data})
+   await axios.get("/login", { params: data})
     .then(response => {
         if (response.data.status == 200) {
             console.log(response);
@@ -55,7 +55,7 @@ axios.post("/auth", {email: "musabecova05@gmail.com", verificationCode: "1234567
     });
     if(login !== ""){
         var domain = window.location.origin;
-        window.location.assign(domain + "/AdminPage");
+        window.location.assign(domain + "/main");
     }else{
     var domain = window.location.origin;
         window.location.assign(domain + "/loginPage");
