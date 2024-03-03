@@ -62,7 +62,7 @@ func SendVerificationCodeEmail(w http.ResponseWriter, r *http.Request) {
 		var response ResponseEmail
 		log.Println(errLast)
 
-		if errLast == nil {
+		if errLast != nil {
 			response = ResponseEmail{
 				Status:           505,
 				Email:            requestJSON.Email,

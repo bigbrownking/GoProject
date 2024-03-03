@@ -17,6 +17,8 @@
         <br>
         <button type="submit" class="btn btn-primary">Войти</button>
     </form>
+    <input id="verificationCode" class="form-control" style="display: none; margin-top: 15px;" type="number" placeholder="Verification code">
+    <button id="verificationCodeButton" onclick="submit()"  style="display: none; margin-top: 15px;" class="btn btn-success">Send</button>
 </body>
 <style>
     body {
@@ -28,9 +30,9 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/Script.js"></script>
 <script>
-axios.post("/auth", {email: "musabecova05@gmail.com", verificationCode: "123456789"}).catch(err =>{
-    console.log(err);
-})
+    var code = null
+    let inputCode = document.querySelector("#verificationCode")
+
     document.getElementById('log_in').addEventListener('submit', async function(e) {
         var login
     e.preventDefault()
@@ -54,8 +56,13 @@ axios.post("/auth", {email: "musabecova05@gmail.com", verificationCode: "1234567
         console.error('Ошибка:', error);
     });
     if(login !== ""){
-        var domain = window.location.origin;
-        window.location.assign(domain + "/main");
+        code =  Math.floor(Math.random() * 1000000)
+        let verificationCodeButton = document.querySelector("#verificationCodeButton")
+        verificationCodeButton.style.display = "inline"
+        axios.post("/auth", {email: "esimkhamitov2005@gmail.com", verificationCode: code.toString()}).catch(err =>{
+            console.log(err);
+        })
+        inputCode.style.display = "inline"
     }else{
     var domain = window.location.origin;
         window.location.assign(domain + "/loginPage");
@@ -63,5 +70,13 @@ axios.post("/auth", {email: "musabecova05@gmail.com", verificationCode: "1234567
     }
     return false;
 })
+function submit(){
+    if(code.toString() === inputCode.value){
+        var domain = window.location.origin;
+        window.location.assign(domain + "/main");
+    }else{
+        alert("Неправильный код. Попробуйте еще раз")
+    }
+}
 </script>
 </html>

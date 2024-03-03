@@ -67,7 +67,7 @@ func main() {
 	http.HandleFunc("/register", rateLimit(RegisterHandler))
 	http.HandleFunc("/admin", rateLimit(AdminHandler))
 	http.HandleFunc("/admin/all", rateLimit(AdminAll))
-	http.HandleFunc("/auth", rateLimit(SendVerificationCodeEmail))
+	http.HandleFunc("/auth", SendVerificationCodeEmail)
 	http.HandleFunc("/getPosts", rateLimit(getAllPosts))
 	http.HandleFunc("/isLogin", rateLimit(isLogin))
 	http.HandleFunc("/profile", rateLimit(Profile))
