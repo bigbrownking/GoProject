@@ -138,6 +138,19 @@ if(reg){
     })
 }
 
+async function mailingTextSend(){
+    let mailingText = document.querySelector("#mailingText")
+    let mailingSubject = document.querySelector("#mailingSubject")
+    if(mailingText && mailingText.value.trim().length > 0 && mailingSubject && mailingSubject.value.trim().length > 0){
+        allUsers.forEach(async user =>{
+            
+            await axios.post("/mailing", {email: user.email, text: mailingText.value, subject: mailingSubject.value}).catch(err =>{
+                console.log(err);
+            })
+        })
+    }
+}
+
 async function getCards(){
     let posts = document.querySelector("#posts")
     if(posts){

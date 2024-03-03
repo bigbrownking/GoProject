@@ -71,6 +71,7 @@ func main() {
 	http.HandleFunc("/isLogin", rateLimit(isLogin))
 	http.HandleFunc("/profile", rateLimit(Profile))
 	http.HandleFunc("/logOut", rateLimit(LogOut))
+	http.HandleFunc("/mailing", SendMailengTextEmail)
 
 	server := &http.Server{
 		Addr:    ":8080",
