@@ -56,7 +56,7 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		//_________________________connect to MongoDb_____________________________________
 		serverAPI := options.ServerAPI(options.ServerAPIVersion1)
-		opts := options.Client().ApplyURI("mongodb+srv://Esimgali:LOLRKCjhuCSfTdeY@cluste.vdsc74d.mongodb.net/?retryWrites=true&w=majority").SetServerAPIOptions(serverAPI)
+		opts := options.Client().ApplyURI("mongodb+srv://myAtlasDBUser:111@myatlasclusteredu.z25a02h.mongodb.net/?retryWrites=true&w=majority&appName=myAtlasClusterEDU").SetServerAPIOptions(serverAPI)
 		client, err := mongo.Connect(context.TODO(), opts)
 		if err != nil {
 			panic(err)
@@ -245,7 +245,7 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 func AdminAll(w http.ResponseWriter, r *http.Request) {
 	//_________________________connect to MongoDb_____________________________________
 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
-	opts := options.Client().ApplyURI("mongodb+srv://Esimgali:LOLRKCjhuCSfTdeY@cluste.vdsc74d.mongodb.net/?retryWrites=true&w=majority").SetServerAPIOptions(serverAPI)
+	opts := options.Client().ApplyURI("mongodb+srv://myAtlasDBUser:111@myatlasclusteredu.z25a02h.mongodb.net/?retryWrites=true&w=majority&appName=myAtlasClusterEDU").SetServerAPIOptions(serverAPI)
 	client, err := mongo.Connect(context.TODO(), opts)
 	if err != nil {
 		panic(err)

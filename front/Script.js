@@ -85,7 +85,7 @@ if(domain.includes("main")){
                     `
                     posts.appendChild(card)
                     document.querySelector(`#addToCard${element.Id}`).addEventListener("click",async ()=>{
-                        await axios.post("/addToCard", {userId: currentUser.Id, card: element})
+                        await axios.post("/Cart", {userId: currentUser.Id, card: element})
                     })
                 });
             }

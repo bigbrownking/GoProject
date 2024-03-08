@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"log"
 	"net/http"
 	"os"
@@ -27,6 +28,14 @@ type ResponseLogin struct {
 	PhoneNumber string             `json:"number"`
 	Address     string             `json:"address"`
 	IsAdmin     bool               `json:"isAdmin"`
+}
+type Cart struct {
+	UserID primitive.ObjectID `bson:"userId"` // Add this line
+	Items  []CartItem         `json:"items"`
+}
+type CartItem struct {
+	ProductID string `json:"productId"`
+	Quantity  int    `json:"quantity"`
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
@@ -56,7 +65,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 		//_________________________connect to MongoDb_____________________________________
 		serverAPI := options.ServerAPI(options.ServerAPIVersion1)
-		opts := options.Client().ApplyURI("mongodb+srv://Esimgali:LOLRKCjhuCSfTdeY@cluste.vdsc74d.mongodb.net/?retryWrites=true&w=majority").SetServerAPIOptions(serverAPI)
+		opts := options.Client().ApplyURI("mongodb+srv://myAtlasDBUser:111@myatlasclusteredu.z25a02h.mongodb.net/?retryWrites=true&w=majority&appName=myAtlasClusterEDU").SetServerAPIOptions(serverAPI)
 		client, err := mongo.Connect(context.TODO(), opts)
 		if err != nil {
 			panic(err)
@@ -109,6 +118,24 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(response.Status)
 		w.Write(responseJSON)
+		cartCollection := client.Database("mydb").Collection("carts")
+
+		var userCart Cart
+		err = cartCollection.FindOne(context.TODO(), bson.M{"userId": result.Id}).Decode(&userCart)
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			newCart := Cart{
+				UserID: result.Id,
+				Items:  []CartItem{},
+			}
+			_, err = cartCollection.InsertOne(context.TODO(), newCart)
+			if err != nil {
+				log.Println("Error creating new cart:", err)
+
+			}
+		} else if err != nil {
+			log.Println("Error checking for existing cart:", err)
+
+		}
 	}
 }
 
@@ -148,5 +175,25 @@ func isLogin(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(response.Status)
+	w.Write(responseJSON)
+}
+func GetCurrentUserHandler(w http.ResponseWriter, r *http.Request) {
+	var response ResponseLogin
+	if CurrentUser.Login == "" {
+		http.Error(w, "No user is currently logged in", http.StatusUnauthorized)
+		return
+	} else {
+		response = CurrentUser
+	}
+
+	responseJSON, err := json.Marshal(response)
+	if err != nil {
+		log.Println("Error encoding JSON response")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 	w.Write(responseJSON)
 }

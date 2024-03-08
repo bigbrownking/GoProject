@@ -386,3 +386,36 @@
 2024/03/03 14:48:32 <nil>
 2024/03/03 14:48:34 <nil>
 2024/03/03 14:48:34 <nil>
+2024/03/08 09:11:18 Server listening on port: 8080
+2024/03/08 09:11:31 Shutting down server...
+2024/03/08 09:11:31 Server stopped
+2024/03/08 09:59:25 Server listening on port: 8080
+2024/03/08 09:59:40 &{0xc00007a500} Received POST request with message: %s
+ {alisher 1234}
+2024/03/08 09:59:43 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 09:59:44 {0 [] alisher ObjectID("65ea072eb457cf80cc65d16d") alisherkhairullin463@gmail.com +7 (776) 716-08-30  Astana true}
+2024/03/08 09:59:44 Received POST request with message: {alisherkhairullin463@gmail.com 846257}
+2024/03/08 09:59:46 <nil>
+2024/03/08 09:59:58 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:00:13 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:01:21 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:01:56 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:02:01 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:07:27 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:07:42 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:07:45 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:13:22 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:17:58 Server listening on port: 8080
+2024/03/08 10:18:33 Received POST request with message: {test 4321 alisherkhairullin463@gmail.com +7 776 716 0830 Nur-Sultan %!s(bool=false)}
+2024/03/08 10:18:35 Received POST request with message: {test 4321 alisherkhairullin463@gmail.com +7 776 716 0830 Nur-Sultan %!s(bool=false)}
+2024/03/08 10:18:36 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:18:36 {0  <nil>}
+2024/03/08 10:18:46 &{0xc00007a500} Received POST request with message: %s
+ {test 4321}
+2024/03/08 10:18:48 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:18:48 {0 [] test ObjectID("65ea919cce45daadfed7c581") alisherkhairullin463@gmail.com +7 776 716 0830 Nur-Sultan false}
+2024/03/08 10:18:49 Received POST request with message: {alisherkhairullin463@gmail.com 337081}
+2024/03/08 10:18:50 <nil>
+2024/03/08 10:19:03 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:19:19 Pinged your deployment. You successfully connected to MongoDB!
+2024/03/08 10:39:28 Pinged your deployment. You successfully connected to MongoDB!
